@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../Build/targets/build_core.props" />
+  <Import Project="../Build/targets/build_version.props" />
+  <Import Project="../Build/targets/build_xml_documentation.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.4.0" />
+
+    <!--
+    Workaround for 'NU1605: Detected package downgrade':
+    'Swashbuckle.AspNetCore.Newtonsoft' uses an old version of 'Microsoft.AspNetCore.Mvc.Formatters.Json'
+    -->
+    <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Handles" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FS.TimeTracking.ReportServer.Abstractions\FS.TimeTracking.ReportServer.Abstractions.csproj" />
+    <ProjectReference Include="..\FS.TimeTracking.ReportServer.Core\FS.TimeTracking.ReportServer.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,31 @@
+FROM schicksoftware/dotnet6.0-jre17-nodejs16.0:latest AS build
+ARG CI_PROJECT_NAME
+ARG CI_COMMIT_REF_NAME
+COPY / .
+RUN pwsh -Command Build/scripts/publish_server.ps1 -version "${CI_COMMIT_REF_NAME}" -runtime linux-x64 -publshFolder "${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}"
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0.7-bullseye-slim AS base
+ARG CI_PROJECT_NAME
+ARG CI_COMMIT_REF_NAME
+
+RUN adduser \
+  --disabled-password \
+  --home /opt/timetracking.reportserver \
+  --gecos '' timetracking \
+  && chown -R timetracking /opt/timetracking.reportserver \
+  && mkdir -p /var/timetracking.reportserver \
+  && chown -R timetracking /var/timetracking.reportserver
+
+USER timetracking
+
+WORKDIR /opt/timetracking.reportserver
+
+COPY --from=build ./${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME} .
+
+ENV \
+  DOTNET_RUNNING_IN_CONTAINER=true \
+  ASPNETCORE_URLS=http://+:5010
+
+EXPOSE 5010
+
+ENTRYPOINT ["dotnet", "FS.TimeTracking.ReportServer.dll"]

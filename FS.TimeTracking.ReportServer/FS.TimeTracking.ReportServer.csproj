@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <Import Project="../Build/targets/build_core.props" />
+  <Import Project="../Build/targets/build_version.props" />
+  <Import Project="../Build/targets/build_xml_documentation.props" />
+  <ItemGroup>
+    <Compile Remove="translations\**" />
+    <Content Remove="translations\**" />
+    <EmbeddedResource Remove="translations\**" />
+    <None Remove="translations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="6.0.0" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.1.0" />
+    <PackageReference Include="Mono.Options" Version="6.12.0.148" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FS.TimeTracking.ReportServer.Abstractions\FS.TimeTracking.ReportServer.Abstractions.csproj" />
+    <ProjectReference Include="..\FS.TimeTracking.ReportServer.Api.REST\FS.TimeTracking.ReportServer.Api.REST.csproj" />
+    <ProjectReference Include="..\FS.TimeTracking.ReportServer.Application\FS.TimeTracking.ReportServer.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="config\FS.TimeTracking.ReportServer.config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="config\FS.TimeTracking.ReportServer.config.development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Update="config\FS.TimeTracking.ReportServer.config.nlog">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <BuildScripDirectory>../Build</BuildScripDirectory>
+    <ApiGeneratorDirectory>../FS.TimeTracking.ReportServer.Client</ApiGeneratorDirectory>
+  </PropertyGroup>
+
+  <Target Name="DetectIfRuntimeSpecificBuild" AfterTargets="AfterBuild" Condition="$(RuntimeIdentifier) != '' OR $(RuntimeIdentifiers) != ''">
+    <PropertyGroup>
+      <IsRuntimeSpecific>true</IsRuntimeSpecific>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="GenerateOpenApiSpec" AfterTargets="AfterBuild" Condition="$(IsRuntimeSpecific) != true">
+    <Exec Command="dotnet &quot;$(OutputPath)$(AssemblyName).dll&quot; --generate-openapi $(TargetName).openapi.json" />
+  </Target>
+
+  <Target Name="GenerateApiClient" AfterTargets="AfterBuild" Condition="$(IsRuntimeSpecific) != true">
+    <Message Importance="High" Text="$(BuildScripDirectory)/node_modules/.bin/openapi-generator-cli generate -c config.json -g csharp-netcore -i $(ProjectDir)$(TargetName).openapi.json -o $(ProjectDir)FS.TimeTracking.ReportServer.Client" />
+    <Exec WorkingDirectory="$(ApiGeneratorDirectory)" Command="$(BuildScripDirectory)/node_modules/.bin/openapi-generator-cli generate -c openapi-generator.config.json -g csharp-netcore -i $(ProjectDir)$(TargetName).openapi.json -o $(ProjectDir)../FS.TimeTracking.ReportServer.Client" />
+    <Message Importance="High" Text="node openapi-generator-fix-shortcoming.js" />
+    <Exec WorkingDirectory="$(ApiGeneratorDirectory)" Command="node openapi-generator-fix-shortcoming.js" />
+  </Target>
+
+</Project>

@@ -1,0 +1,147 @@
+stages:
+  - build
+  - test
+  - deploy
+
+workflow:
+  rules:
+    # If merge request exists: Run as (detached) merge request pipeline (- if: $CI_PIPELINE_SOURCE == "merge_request_event")
+    # Never run normal pipeline when merge request exists / never run both (- if: $CI_OPEN_MERGE_REQUESTS)
+    # Otherwise: Run as normal pipeline (- when: always)
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - when: always
+
+# variables:
+  # # https://docs.cypress.io/guides/continuous-integration/gitlab-ci#Install-Job
+  # # https://github.com/cypress-io/cypress/issues/2821#issuecomment-444109124
+  # # https://github.com/cypress-io/cypress/issues/1281#issuecomment-404823001
+  # npm_config_cache: '$CI_PROJECT_DIR/.npm'
+  # CYPRESS_CACHE_FOLDER: '$CI_PROJECT_DIR/cache/Cypress'
+
+# Cache isn't useful for parallel descendant jobs, see https://gitlab.com/gitlab-org/gitlab-runner/-/issues/1151
+# cache:
+  # key: ${CI_COMMIT_REF_SLUG}
+  # paths:
+    # - $npm_config_cache
+
+build:
+  stage: build
+  interruptible: true
+  image: srv-docker-1:5000/schicksoftware/dotnet6.0-jre17-nodejs16.0:latest
+  tags: [ linux, docker ]
+  script:
+    - Build/scripts/build.ps1 -version "0.0.0.0"
+  rules:
+      # If merge request exists: Run as (detached) merge request pipeline (- if: $CI_PIPELINE_SOURCE == "merge_request_event")
+      # If tag is pushed: Run as normal pipeline (- if: $CI_COMMIT_TAG)
+      # On unprotected branch: Enable manual start of normal pipeline (- if: $CI_COMMIT_REF_PROTECTED == "false")
+      # Otherwise run always (merge / fast forward / ...) (- when: always)
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_REF_PROTECTED == "false"
+      when: manual
+    - when: always
+
+test:
+  stage: test
+  needs: []
+  interruptible: true
+  image: srv-docker-1:5000/schicksoftware/dotnet6.0-jre17-nodejs16.0:latest
+  tags: [ linux, docker ]
+  script:
+    - Build/scripts/test.ps1
+  rules:
+    # If merge request exists: Don't allow to fail (- if: $CI_PIPELINE_SOURCE == "merge_request_event")
+    # If tag is pushed: Run as normal pipeline (- if: $CI_COMMIT_TAG)
+    # On unprotected branch: Allow fail (- if: $CI_COMMIT_REF_PROTECTED == "false")
+    # Else: Don't allow to fail (default)
+    # On unprotected branch: Enable manual start (- if: $CI_COMMIT_REF_PROTECTED == "false")
+    # Otherwise run always (merge / fast forward / ...) (- when: always)
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      allow_failure: false
+    - if: $CI_COMMIT_TAG
+      allow_failure: false
+    - if: $CI_COMMIT_REF_PROTECTED == "false"
+      allow_failure: false
+      when: manual
+    - when: always
+  artifacts:
+    name: "test-results"
+    paths:
+      - ./**/TestResults/*.trx
+      - ./**/TestResults/*.html
+      - ./FS.TimeTracking.UI.Angular/cypress/screenshots
+      - ./FS.TimeTracking.UI.Angular/cypress/videos
+    expire_in: 1 week
+    when: always
+
+deploy_docker:
+  stage: deploy
+  interruptible: true
+  image: docker:20.10.12
+  services: 
+   - name: docker:20.10.12-dind
+     command: [ "--insecure-registry=srv-docker-1:5000" ]
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  tags: [ linux, docker-in-docker ]
+  script:
+    - docker info
+    - docker build -t timetracking.reportserver --build-arg CI_PROJECT_NAME="$CI_PROJECT_NAME" --build-arg CI_COMMIT_REF_NAME="$CI_COMMIT_REF_NAME" -f Build/docker/publish.docker .
+    - docker tag timetracking.reportserver srv-docker-1:5000/schicksoftware/timetracking.reportserver:$CI_COMMIT_TAG
+    - docker tag timetracking.reportserver srv-docker-1:5000/schicksoftware/timetracking.reportserver:latest
+    - docker push srv-docker-1:5000/schicksoftware/timetracking.reportserver:$CI_COMMIT_TAG
+    - docker push srv-docker-1:5000/schicksoftware/timetracking.reportserver:latest
+  rules:
+    # Run only when version-tag is pushed (- if: $CI_COMMIT_TAG =~ /^\d+\.\d+.*$/)
+    - if: $CI_COMMIT_TAG =~ /^\d+\.\d+.*$/
+
+deploy_windows:
+  stage: deploy
+  image: srv-docker-1:5000/schicksoftware/dotnet6.0-jre17-nodejs16.0:latest
+  tags: [ linux, docker ]
+  interruptible: true
+  script:
+    - Build/scripts/publish_server.ps1 -version "$env:CI_COMMIT_REF_NAME" -runtime win10-x64 -publshFolder "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME"
+  rules:
+    # Run only when version-tag is pushed (- if: $CI_COMMIT_TAG =~ /^\d+\.\d+.*$/)
+    - if: $CI_COMMIT_TAG =~ /^\d+\.\d+.*$/
+  artifacts:
+    name: "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME-win10-x64"
+    paths:
+      - "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME"
+    expire_in: 1 month
+
+deploy_linux:
+  stage: deploy
+  interruptible: true
+  image: srv-docker-1:5000/schicksoftware/dotnet6.0-jre17-nodejs16.0:latest
+  tags: [ linux, docker ]
+  script:
+    - Build/scripts/publish_server.ps1 -version "$env:CI_COMMIT_REF_NAME" -runtime linux-x64 -publshFolder "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME"
+  rules:
+    # Run only when version-tag is pushed (- if: $CI_COMMIT_TAG =~ /^\d+\.\d+.*$/)
+    - if: $CI_COMMIT_TAG =~ /^\d+\.\d+.*$/
+  artifacts:
+    name: "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME-linux-x64"
+    paths:
+      - "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME"
+    expire_in: 1 month
+
+deploy_client:
+  stage: deploy
+  interruptible: true
+  image: srv-docker-1:5000/schicksoftware/dotnet6.0-jre17-nodejs16.0:latest
+  tags: [ linux, docker ]
+  script:
+    - Build/scripts/publish_client.ps1 -version "$env:CI_COMMIT_REF_NAME" -publshFolder "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME" -nugetUrl "https://nuget.home.f-schick.de" -apiKey "$env:NUGET_API_KEY"
+  rules:
+    # Run only when version-tag is pushed (- if: $CI_COMMIT_TAG =~ /^\d+\.\d+.*$/)
+    - if: $CI_COMMIT_TAG =~ /^\d+\.\d+.*$/
+  artifacts:
+    name: "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME-client"
+    paths:
+      - "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME"
+    expire_in: 1 month

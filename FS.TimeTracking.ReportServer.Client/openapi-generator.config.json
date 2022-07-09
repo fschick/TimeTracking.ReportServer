@@ -1,0 +1,8 @@
+{
+  "library": "httpclient",
+  "netCoreProjectFile": true,
+  "targetFramework": "netstandard1.6",
+  "packageName": "FS.TimeTracking.Report.Client",
+  "useDateTimeOffset": true,
+  "optionalEmitDefaultValues": true
+}
