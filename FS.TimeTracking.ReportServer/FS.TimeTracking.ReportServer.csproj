@@ -56,8 +56,8 @@
   </Target>
 
   <Target Name="GenerateApiClient" AfterTargets="AfterBuild" Condition="$(IsRuntimeSpecific) != true">
-    <Message Importance="High" Text="$(BuildScripDirectory)/node_modules/.bin/openapi-generator-cli generate -c config.json -g csharp-netcore -i $(ProjectDir)$(TargetName).openapi.json -o $(ProjectDir)FS.TimeTracking.ReportServer.Client" />
-    <Exec WorkingDirectory="$(ApiGeneratorDirectory)" Command="$(BuildScripDirectory)/node_modules/.bin/openapi-generator-cli generate -c openapi-generator.config.json -g csharp-netcore -i $(ProjectDir)$(TargetName).openapi.json -o $(ProjectDir)../FS.TimeTracking.ReportServer.Client" />
+    <Message Importance="High" Text="$(BuildScripDirectory)/node_modules/.bin/openapi-generator-cli generate -c config.json -g csharp-netcore --template-dir templates/csharp-netcore -i $(ProjectDir)$(TargetName).openapi.json -o $(ProjectDir)FS.TimeTracking.ReportServer.Client" />
+    <Exec WorkingDirectory="$(ApiGeneratorDirectory)" Command="$(BuildScripDirectory)/node_modules/.bin/openapi-generator-cli generate -c openapi-generator.config.json -g csharp-netcore --template-dir templates/csharp-netcore -i $(ProjectDir)$(TargetName).openapi.json -o $(ProjectDir)../FS.TimeTracking.ReportServer.Client" />
     <Message Importance="High" Text="node openapi-generator-fix-shortcoming.js" />
     <Exec WorkingDirectory="$(ApiGeneratorDirectory)" Command="node openapi-generator-fix-shortcoming.js" />
   </Target>

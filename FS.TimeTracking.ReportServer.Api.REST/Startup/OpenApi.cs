@@ -27,10 +27,10 @@ internal static class OpenApi
                 const string documentName = V1ApiController.API_VERSION;
                 c.SwaggerDoc(documentName, new OpenApiInfo { Title = $"{AssemblyExtensions.GetProgramProduct()} Report API", Version = V1ApiController.API_VERSION });
 
+                c.OperationFilter<AddCSharpActionFilter>();
+
                 var restXmlDoc = Path.Combine(AppContext.BaseDirectory, "FS.TimeTracking.ReportServer.Api.REST.xml");
                 var abstractionsXmlDoc = Path.Combine(AppContext.BaseDirectory, "FS.TimeTracking.ReportServer.Abstractions.xml");
-
-                c.OperationFilter<AddCSharpActionFilter>();
                 c.IncludeXmlComments(restXmlDoc);
                 c.IncludeXmlComments(abstractionsXmlDoc);
             });
