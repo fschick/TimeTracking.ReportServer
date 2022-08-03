@@ -1,7 +1,7 @@
 const {resolve} = require('path');
 const {readdir, readFile, writeFile} = require('fs').promises;
 
-const p = `
+const projectImports = `
   <Import Project="../../../Build/targets/build_core.props" />
   <Import Project="../../../Build/targets/build_version.props" />
   <Import Project="../../../Build/targets/build_nuget.props" />
@@ -12,18 +12,29 @@ const p = `
   </ItemGroup>
 `;
 
-const fixes = [
+const projectFixes = [
 	// Sample:
-	// {search: /cc/g, replace: 'ee'},    
-	
+	// {search: /cc/g, replace: 'ee'},
+
     // DateTime is already imported by adjusted template.
 	{search: /<PropertyGroup>.*<\/PropertyGroup>/s, replace: ''},
-	{search: /<Project Sdk="Microsoft.NET.Sdk">/g, replace: `<Project Sdk="Microsoft.NET.Sdk">${p}`},
+	{search: /<Project Sdk="Microsoft.NET.Sdk">/g, replace: `<Project Sdk="Microsoft.NET.Sdk">${projectImports}`},
+];
+
+const fixes = [
+	{search: /(DateTimeOffset)\?\?/g, replace: '$1?'},
 ];
 
 console.log('Replace version information ...');
-replaceInFile('src/FS.TimeTracking.Report.Client/FS.TimeTracking.Report.Client.csproj', fixes).then(() => console.log('finished'));
-// replaceInDirectory(directory, fixes).then(() => console.log('finished'));
+
+const directory = process.argv[2];
+replaceInFile('src/FS.TimeTracking.Report.Client/FS.TimeTracking.Report.Client.csproj', projectFixes)
+	.then(() => {
+		console.log('Replace in directory ', directory);
+		return replaceInDirectory(directory, fixes);
+	})
+	.then(() => console.log('finished'));
+
 
 async function replaceInDirectory(directory, replacements) {
     for await (const file of getFiles(directory))
