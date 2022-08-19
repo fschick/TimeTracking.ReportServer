@@ -46,7 +46,11 @@ public class ActivityReportService : IActivityReportService
     public async Task<ReportPreviewDto> GenerateActivityReportPreview(ActivityReportDto reportDto, int pageFrom, int pageTo, CancellationToken cancellationToken = default)
     {
         using var report = GetActivityReportInternal(reportDto);
+        report.StatusChanged += (_, _) => report.IsStopped = cancellationToken.IsCancellationRequested;
         await report.RenderAsync();
+
+        if (cancellationToken.IsCancellationRequested)
+            return null;
 
         var result = new ReportPreviewDto
         {
@@ -60,6 +64,9 @@ public class ActivityReportService : IActivityReportService
             var exportSettings = new StiImageExportSettings(StiImageType.Png) { MultipleFiles = false, PageRange = new StiPagesRange($"{currentPage}-{currentPage}") };
             var page = StiNetCoreReportResponse.ResponseAsPng(report, exportSettings, false);
             result.Pages.Add(page.Data);
+
+            if (cancellationToken.IsCancellationRequested)
+                return null;
         }
 
         return result;
