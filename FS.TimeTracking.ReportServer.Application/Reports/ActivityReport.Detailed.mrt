@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <StiSerializer version="1.02" type="Net" application="StiReport">
-  <Culture isNull="true" />
   <Dictionary Ref="1" type="Dictionary" isKey="true">
     <BusinessObjects isList="true" count="0" />
     <Databases isList="true" count="1">
@@ -8,7 +7,7 @@
         <Alias>TimeSheet</Alias>
         <Key>2151afde902845939a1db860ec0c2955</Key>
         <Name>TimeSheet</Name>
-        <PathData>http://localhost:5000/api/v1/ActivityReport/GetActivityReportData?language=en-US&amp;timeSheetStartDate=%3C2022-08-31T00:00:00.000%2B01:00&amp;timeSheetEndDate=%3E=2022-08-01T00:00:00.000%2B01:00,ISNULL</PathData>
+        <PathData>http://localhost:5000/api/v1/ActivityReport/GetActivityReportData?language=de-US&amp;timeSheetStartDate=%3C2022-05-31T00:00:00.000%2B01:00&amp;timeSheetEndDate=%3E=2022-05-01T00:00:00.000%2B01:00,ISNULL</PathData>
       </TimeSheet>
     </Databases>
     <DataSources isList="true" count="4">
@@ -97,12 +96,12 @@
   <Pages isList="true" count="1">
     <Page1 Ref="7" type="Page" isKey="true">
       <Brush>Transparent</Brush>
-      <Components isList="true" count="5">
+      <Components isList="true" count="4">
         <GroupHeaderCustomer Ref="8" type="GroupHeaderBand" isKey="true">
           <Brush>Transparent</Brush>
           <CanShrink>True</CanShrink>
-          <ClientRectangle>0,0.4,17,6.4</ClientRectangle>
-          <Components isList="true" count="12">
+          <ClientRectangle>0,0.4,17,6.6</ClientRectangle>
+          <Components isList="true" count="13">
             <ActivityReportLabel Ref="9" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>0,0.2,10.6,1.2</ClientRectangle>
@@ -124,7 +123,7 @@
               <ComponentStyle>Title 2</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro Semibold,13</Font>
+              <Font>Source Sans Pro,13</Font>
               <Margins>0,0,0,0</Margins>
               <Name>CustomerLabel</Name>
               <Page isRef="7" />
@@ -258,7 +257,7 @@
               <ComponentStyle>Title 2</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro Semibold,13</Font>
+              <Font>Source Sans Pro,13</Font>
               <Margins>0,0,0,0</Margins>
               <Name>ServiceProviderLabel</Name>
               <Page isRef="7" />
@@ -396,7 +395,7 @@
               <ComponentStyle>Title 2</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro Semibold,13</Font>
+              <Font>Source Sans Pro,13</Font>
               <Margins>0,0,0,0</Margins>
               <Name>PeriodLabel</Name>
               <Page isRef="7" />
@@ -423,9 +422,10 @@
             <ProviderLogo Ref="28" type="Image" isKey="true">
               <AspectRatio>True</AspectRatio>
               <Brush>Transparent</Brush>
-              <ClientRectangle>12,0,5,4.4</ClientRectangle>
+              <ClientRectangle>13,0.2,4,4</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
+              <HorAlignment>Right</HorAlignment>
               <IconColor>68, 114, 196</IconColor>
               <ImageBytes>R0lGODlhHALiAfcAAAAAAGdtcYCjEoerEY2zD5G4Dpe/DQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -552,6 +552,16 @@ PwU1VFFHJbVUU09FNVVVV2W1VVdfhTVWWWeltdZRAwIAOw==</ImageBytes>
               <Parent isRef="8" />
               <Stretch>True</Stretch>
             </ProviderLogo>
+            <Padding Ref="29" type="Panel" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,6,10.6,0.4</ClientRectangle>
+              <Components isList="true" count="0" />
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Name>Padding</Name>
+              <Page isRef="7" />
+              <Parent isRef="8" />
+            </Padding>
           </Components>
           <Condition>{timeSheets.customerCompanyName}</Condition>
           <Conditions isList="true" count="0" />
@@ -561,43 +571,46 @@ PwU1VFFHJbVUU09FNVVVV2W1VVdfhTVWWWeltdZRAwIAOw==</ImageBytes>
           <Page isRef="7" />
           <Parent isRef="7" />
         </GroupHeaderCustomer>
-        <GroupHeaderProject Ref="29" type="GroupHeaderBand" isKey="true">
+        <GroupHeaderProject Ref="30" type="GroupHeaderBand" isKey="true">
           <Brush>Transparent</Brush>
           <CanShrink>True</CanShrink>
-          <ClientRectangle>0,7.6,17,1.2</ClientRectangle>
-          <Components isList="true" count="1">
-            <ProjectPanel Ref="30" type="Panel" isKey="true">
-              <Border>Bottom;Black;1;Solid;False;4;Black</Border>
-              <Brush>EmptyBrush</Brush>
+          <ClientRectangle>0,7.8,17,1.2</ClientRectangle>
+          <Components isList="true" count="2">
+            <Project Ref="31" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
-              <ClientRectangle>0,0.6,17,0.6</ClientRectangle>
-              <Components isList="true" count="1">
-                <Project Ref="31" type="Text" isKey="true">
-                  <AllowHtmlTags>True</AllowHtmlTags>
-                  <Brush>Transparent</Brush>
-                  <CanGrow>True</CanGrow>
-                  <CanShrink>True</CanShrink>
-                  <ClientRectangle>0,0,17,0.6</ClientRectangle>
-                  <ComponentStyle>Title 2</ComponentStyle>
-                  <Conditions isList="true" count="0" />
-                  <Expressions isList="true" count="0" />
-                  <Font>Source Sans Pro Semibold,13</Font>
-                  <Margins>0,0,0,0</Margins>
-                  <Name>Project</Name>
-                  <Page isRef="7" />
-                  <Parent isRef="30" />
-                  <Text>{translations.Project} {timeSheets.projectTitle} ({ToHours(SumTime((TimeSpan)timeSheets.duration))} {translations.Hours})</Text>
-                  <TextBrush>Black</TextBrush>
-                  <TextQuality>Wysiwyg</TextQuality>
-                  <Type>Expression</Type>
-                </Project>
-              </Components>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>0,0.4,17,0.6</ClientRectangle>
+              <ComponentStyle>Title 3</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Name>ProjectPanel</Name>
+              <Font>Source Sans Pro,10,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Project</Name>
               <Page isRef="7" />
-              <Parent isRef="29" />
-            </ProjectPanel>
+              <Parent isRef="30" />
+              <Text>{translations.Project}: {timeSheets.projectTitle} ({ToHours(SumTime((TimeSpan)timeSheets.duration))} {translations.Hours})</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Project>
+            <HorizontalLinePrimitive1 Ref="32" type="HorizontalLinePrimitive" isKey="true">
+              <ClientRectangle>0,0.97,17,0.0254</ClientRectangle>
+              <Color>Gray</Color>
+              <Conditions isList="true" count="0" />
+              <EndCap Ref="33" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </EndCap>
+              <Expressions isList="true" count="0" />
+              <Name>HorizontalLinePrimitive1</Name>
+              <Page isRef="7" />
+              <Parent isRef="30" />
+              <Size>0.75</Size>
+              <StartCap Ref="34" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </StartCap>
+            </HorizontalLinePrimitive1>
           </Components>
           <Condition>{timeSheets.projectTitle}</Condition>
           <Conditions isList="true" count="0" />
@@ -606,22 +619,22 @@ PwU1VFFHJbVUU09FNVVVV2W1VVdfhTVWWWeltdZRAwIAOw==</ImageBytes>
           <Page isRef="7" />
           <Parent isRef="7" />
         </GroupHeaderProject>
-        <GroupHeaderWorkDay Ref="32" type="GroupHeaderBand" isKey="true">
+        <GroupHeaderWorkDay Ref="35" type="GroupHeaderBand" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>0,9.6,17,0.7</ClientRectangle>
+          <ClientRectangle>0,9.8,17,0.6</ClientRectangle>
           <Components isList="true" count="1">
-            <Workday Ref="33" type="Text" isKey="true">
+            <Workday Ref="36" type="Text" isKey="true">
               <Brush>Transparent</Brush>
-              <ClientRectangle>0,0,5,0.6</ClientRectangle>
-              <ComponentStyle>Title 3</ComponentStyle>
+              <ClientRectangle>0,0.2,17,0.4</ClientRectangle>
+              <ComponentStyle>Title 4</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,10,Bold</Font>
+              <Font>Source Sans Pro Semibold,10,Italic</Font>
               <Margins>0,0,0,0</Margins>
               <Name>Workday</Name>
               <Page isRef="7" />
-              <Parent isRef="32" />
-              <Text>{Format("{0:D}", timeSheets.startDate)}</Text>
+              <Parent isRef="35" />
+              <Text>{Format("{0:D}", timeSheets.startDate)} ({ToHours(SumTime((TimeSpan)timeSheets.duration))} {translations.Hours})</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Workday>
@@ -634,12 +647,12 @@ PwU1VFFHJbVUU09FNVVVV2W1VVdfhTVWWWeltdZRAwIAOw==</ImageBytes>
           <Page isRef="7" />
           <Parent isRef="7" />
         </GroupHeaderWorkDay>
-        <TimeSheets Ref="34" type="DataBand" isKey="true">
+        <TimeSheets Ref="37" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <BusinessObjectGuid isNull="true" />
-          <ClientRectangle>0,11.1,17,0.4</ClientRectangle>
+          <ClientRectangle>0,11.2,17,0.4</ClientRectangle>
           <Components isList="true" count="3">
-            <TimeSheetFromTo Ref="35" type="Text" isKey="true">
+            <TimeSheetFromTo Ref="38" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
@@ -651,12 +664,12 @@ PwU1VFFHJbVUU09FNVVVV2W1VVdfhTVWWWeltdZRAwIAOw==</ImageBytes>
               <Margins>0,0,0,0</Margins>
               <Name>TimeSheetFromTo</Name>
               <Page isRef="7" />
-              <Parent isRef="34" />
+              <Parent isRef="37" />
               <Text>{string.Format("{0:HH:mm} - {1:HH:mm}", timeSheets.startDate, timeSheets.endDate)}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </TimeSheetFromTo>
-            <TimeSheetDuration Ref="36" type="Text" isKey="true">
+            <TimeSheetDuration Ref="39" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
@@ -668,12 +681,12 @@ PwU1VFFHJbVUU09FNVVVV2W1VVdfhTVWWWeltdZRAwIAOw==</ImageBytes>
               <Margins>0,0,0,0</Margins>
               <Name>TimeSheetDuration</Name>
               <Page isRef="7" />
-              <Parent isRef="34" />
+              <Parent isRef="37" />
               <Text>{timeSheets.duration.ToString("hh\\:mm")}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </TimeSheetDuration>
-            <TimeSheetDetails Ref="37" type="Text" isKey="true">
+            <TimeSheetDetails Ref="40" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
@@ -685,7 +698,7 @@ PwU1VFFHJbVUU09FNVVVV2W1VVdfhTVWWWeltdZRAwIAOw==</ImageBytes>
               <Margins>0,0,0,0</Margins>
               <Name>TimeSheetDetails</Name>
               <Page isRef="7" />
-              <Parent isRef="34" />
+              <Parent isRef="37" />
               <Text>{timeSheets.comment}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
@@ -702,50 +715,6 @@ PwU1VFFHJbVUU09FNVVVV2W1VVdfhTVWWWeltdZRAwIAOw==</ImageBytes>
           <Parent isRef="7" />
           <Sort isList="true" count="0" />
         </TimeSheets>
-        <GroupFooterWorkDay Ref="38" type="GroupFooterBand" isKey="true">
-          <Brush>Transparent</Brush>
-          <CanShrink>True</CanShrink>
-          <ClientRectangle>0,12.3,17,0.6</ClientRectangle>
-          <Components isList="true" count="2">
-            <WorkdayTotalLabel Ref="39" type="Text" isKey="true">
-              <Brush>Transparent</Brush>
-              <CanGrow>True</CanGrow>
-              <CanShrink>True</CanShrink>
-              <ClientRectangle>0,0,2,0.4</ClientRectangle>
-              <ComponentStyle>Title 3</ComponentStyle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,10,Bold</Font>
-              <Margins>0,0,0,0</Margins>
-              <Name>WorkdayTotalLabel</Name>
-              <Page isRef="7" />
-              <Parent isRef="38" />
-              <Text>{translations.Total}</Text>
-              <TextBrush>Black</TextBrush>
-              <Type>Expression</Type>
-            </WorkdayTotalLabel>
-            <WorkdayTotal Ref="40" type="Text" isKey="true">
-              <Brush>Transparent</Brush>
-              <ClientRectangle>2.2,0,11.6,0.6</ClientRectangle>
-              <ComponentStyle>Title 3</ComponentStyle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,10,Bold</Font>
-              <Margins>0,0,0,0</Margins>
-              <Name>WorkdayTotal</Name>
-              <Page isRef="7" />
-              <Parent isRef="38" />
-              <Text>{ToHours(SumTime((TimeSpan)timeSheets.duration))}</Text>
-              <TextBrush>Black</TextBrush>
-              <Type>Expression</Type>
-            </WorkdayTotal>
-          </Components>
-          <Conditions isList="true" count="0" />
-          <Expressions isList="true" count="0" />
-          <Name>GroupFooterWorkDay</Name>
-          <Page isRef="7" />
-          <Parent isRef="7" />
-        </GroupFooterWorkDay>
       </Components>
       <ComponentStyle>Title 2 Data</ComponentStyle>
       <Conditions isList="true" count="0" />
@@ -770,13 +739,13 @@ PwU1VFFHJbVUU09FNVVVV2W1VVdfhTVWWWeltdZRAwIAOw==</ImageBytes>
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>8/12/2022 9:45:16 AM</ReportChanged>
+  <ReportChanged>9/1/2022 7:27:11 PM</ReportChanged>
   <ReportCreated>3/7/2022 6:49:15 PM</ReportCreated>
-  <ReportFile>D:\Prog\CSharp\Schick\FS.TimeTracking.ReportServer\FS.TimeTracking.ReportServer.Application\Reports\ActivityReport.Detailed - Kopie.mrt</ReportFile>
-  <ReportGuid>d7556c1e2ce3418aa2fbf2311aa6409f</ReportGuid>
+  <ReportFile>D:\Prog\CSharp\Schick\FS.TimeTracking.ReportServer\FS.TimeTracking.ReportServer.Application\Reports\ActivityReport.Detailed.mrt</ReportFile>
+  <ReportGuid>df4e008c98a245f086f296051a8f803d</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
-  <ReportVersion>2022.3.4.0</ReportVersion>
+  <ReportVersion>2022.1.6.0</ReportVersion>
   <Script>using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -825,7 +794,7 @@ namespace Reports
 }
 </Script>
   <ScriptLanguage>CSharp</ScriptLanguage>
-  <Styles isList="true" count="6">
+  <Styles isList="true" count="7">
     <Title_x0020_1 Ref="41" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Brush>Transparent</Brush>
       <Conditions isList="true" count="0" />
@@ -845,7 +814,7 @@ namespace Reports
     <Title_x0020_2 Ref="43" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Brush>Transparent</Brush>
       <Conditions isList="true" count="0" />
-      <Font>Source Sans Pro Semibold,13</Font>
+      <Font>Source Sans Pro,13</Font>
       <Name>Title 2</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>Black</TextBrush>
@@ -874,5 +843,13 @@ namespace Reports
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>Black</TextBrush>
     </Title_x0020_3_x0020_Data>
+    <Title_x0020_4 Ref="47" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Brush>Transparent</Brush>
+      <Conditions isList="true" count="0" />
+      <Font>Source Sans Pro Semibold,10,Italic</Font>
+      <Name>Title 4</Name>
+      <NegativeTextBrush>Red</NegativeTextBrush>
+      <TextBrush>Black</TextBrush>
+    </Title_x0020_4>
   </Styles>
 </StiSerializer>
