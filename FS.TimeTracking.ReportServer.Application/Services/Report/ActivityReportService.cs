@@ -20,6 +20,8 @@ namespace FS.TimeTracking.ReportServer.Application.Services.Report;
 /// <inheritdoc />
 public class ActivityReportService : IActivityReportService
 {
+    private const string DETAILED_ACTIVITY_REPORT_FILE = "ActivityReport.Detailed.mrt";
+
     private readonly TimeTrackingReportConfiguration _configuration;
 
     /// <summary>
@@ -29,23 +31,34 @@ public class ActivityReportService : IActivityReportService
         => _configuration = configuration.Value;
 
     /// <inheritdoc />
-    public Task<FileResult> GenerateActivityReport(ActivityReportDto reportDto, CancellationToken cancellationToken = default)
-    {
-        using var report = GetActivityReportInternal(reportDto);
-        var reportPdf = StiNetCoreReportResponse.ResponseAsPdf(report);
+    public Task<FileResult> GenerateDetailedActivityReport(ActivityReportDto reportDto, CancellationToken cancellationToken = default)
+        => GenerateReport(reportDto, DETAILED_ACTIVITY_REPORT_FILE, cancellationToken);
 
+    /// <inheritdoc />
+    public async Task<ReportPreviewDto> GenerateDetailedActivityReportPreview(ActivityReportDto reportDto, int pageFrom, int pageTo, CancellationToken cancellationToken = default)
+        => await GenerateReportPreview(reportDto, DETAILED_ACTIVITY_REPORT_FILE, pageFrom, pageTo, cancellationToken);
+
+    private async Task<FileResult> GenerateReport(ActivityReportDto reportDto, string reportFile, CancellationToken cancellationToken)
+    {
+        using var report = CreateActivityReportInternal(reportDto, reportFile);
+        report.StatusChanged += (_, _) => report.IsStopped = cancellationToken.IsCancellationRequested;
+        await report.RenderAsync();
+
+        if (cancellationToken.IsCancellationRequested)
+            return null;
+
+        var reportPdf = StiNetCoreReportResponse.ResponseAsPdf(report);
         var reportFileResult = new FileContentResult(reportPdf.Data, "application/pdf")
         {
             FileDownloadName = reportPdf.FileName
         };
 
-        return Task.FromResult((FileResult)reportFileResult);
+        return reportFileResult;
     }
 
-    /// <inheritdoc />
-    public async Task<ReportPreviewDto> GenerateActivityReportPreview(ActivityReportDto reportDto, int pageFrom, int pageTo, CancellationToken cancellationToken = default)
+    private async Task<ReportPreviewDto> GenerateReportPreview(ActivityReportDto reportDto, string reportFile, int pageFrom, int pageTo, CancellationToken cancellationToken)
     {
-        using var report = GetActivityReportInternal(reportDto);
+        using var report = CreateActivityReportInternal(reportDto, reportFile);
         report.StatusChanged += (_, _) => report.IsStopped = cancellationToken.IsCancellationRequested;
         await report.RenderAsync();
 
@@ -72,14 +85,16 @@ public class ActivityReportService : IActivityReportService
         return result;
     }
 
-    private StiReport GetActivityReportInternal(ActivityReportDto reportDto)
+    private StiReport CreateActivityReportInternal(ActivityReportDto reportDto, string fileName)
     {
         StiLicense.Key = _configuration.StimulsoftLicenseKey;
         var report = StiReport.CreateNewReport();
         var reportFolder = Path.Combine(TimeTrackingReportConfiguration.ExecutablePath, TimeTrackingReportConfiguration.REPORT_FOLDER);
-        var reportFile = Path.Combine(reportFolder, "ActivityReport.Detailed.mrt");
+        var reportFile = Path.Combine(reportFolder, fileName);
         report.Load(reportFile);
         report.Dictionary.Databases.Clear();
+
+        report.Culture = reportDto.Parameters.Culture;
 
         var reportDataJson = JsonConvert.SerializeObject(reportDto);
         using var reportData = StiJsonToDataSetConverterV2.GetDataSet(reportDataJson);

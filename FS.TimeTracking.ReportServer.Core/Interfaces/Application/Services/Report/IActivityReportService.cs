@@ -11,18 +11,18 @@ namespace FS.TimeTracking.ReportServer.Core.Interfaces.Application.Services.Repo
 public interface IActivityReportService
 {
     /// <summary>
-    /// Generates a report.
+    /// Generates a detailed activity report.
     /// </summary>
     /// <param name="source">Source for the report.</param>
     /// <param name="cancellationToken">a token that allows processing to be cancelled.</param>
-    Task<FileResult> GenerateActivityReport(ActivityReportDto source, CancellationToken cancellationToken = default);
+    Task<FileResult> GenerateDetailedActivityReport(ActivityReportDto source, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Generates a report.
+    /// Generates preview pages for detailed activity report.
     /// </summary>
     /// <param name="source">Source for the report.</param>
     /// <param name="pageFrom">The first page to get the preview for.</param>
     /// <param name="pageTo">The last page to get the preview for.</param>
     /// <param name="cancellationToken">a token that allows processing to be cancelled.</param>
-    Task<ReportPreviewDto> GenerateActivityReportPreview(ActivityReportDto source, int pageFrom, int pageTo, CancellationToken cancellationToken = default);
+    Task<ReportPreviewDto> GenerateDetailedActivityReportPreview(ActivityReportDto source, int pageFrom, int pageTo, CancellationToken cancellationToken = default);
 }

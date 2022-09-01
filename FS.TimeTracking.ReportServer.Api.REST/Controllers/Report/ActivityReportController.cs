@@ -22,14 +22,14 @@ public class ActivityReportController : ControllerBase, IActivityReportService
     public ActivityReportController(IActivityReportService activityReportService)
         => _activityReportService = activityReportService;
 
-    /// <inheritdoc cref="IActivityReportService.GenerateActivityReport" />
+    /// <inheritdoc cref="IActivityReportService.GenerateDetailedActivityReport" />
     [HttpPost]
     [ProducesResponseType(typeof(byte[]), 200)]
-    public async Task<FileResult> GenerateActivityReport(ActivityReportDto source, CancellationToken cancellationToken = default)
-        => await _activityReportService.GenerateActivityReport(source, cancellationToken);
+    public async Task<FileResult> GenerateDetailedActivityReport(ActivityReportDto source, CancellationToken cancellationToken = default)
+        => await _activityReportService.GenerateDetailedActivityReport(source, cancellationToken);
 
-    /// <inheritdoc cref="IActivityReportService.GenerateActivityReportPreview" />
+    /// <inheritdoc cref="IActivityReportService.GenerateDetailedActivityReportPreview" />
     [HttpPost]
-    public async Task<ReportPreviewDto> GenerateActivityReportPreview(ActivityReportDto source, int pageFrom, int pageTo, CancellationToken cancellationToken = default)
-        => await _activityReportService.GenerateActivityReportPreview(source, pageFrom, pageTo, cancellationToken);
+    public async Task<ReportPreviewDto> GenerateDetailedActivityReportPreview(ActivityReportDto source, int pageFrom, int pageTo, CancellationToken cancellationToken = default)
+        => await _activityReportService.GenerateDetailedActivityReportPreview(source, pageFrom, pageTo, cancellationToken);
 }

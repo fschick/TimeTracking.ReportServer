@@ -17,4 +17,9 @@ public class ReportParameter
     /// Gets or sets the end date.
     /// </summary>
     public DateTimeOffset EndDate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the report culture.
+    /// </summary>
+    public string Culture { get; set; }
 }
