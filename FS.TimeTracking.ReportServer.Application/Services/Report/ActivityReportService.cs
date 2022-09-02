@@ -21,6 +21,7 @@ namespace FS.TimeTracking.ReportServer.Application.Services.Report;
 public class ActivityReportService : IActivityReportService
 {
     private const string DETAILED_ACTIVITY_REPORT_FILE = "ActivityReport.Detailed.mrt";
+    private const string DAILY_ACTIVITY_REPORT_FILE = "ActivityReport.Daily.mrt";
 
     private readonly TimeTrackingReportConfiguration _configuration;
 
@@ -31,16 +32,10 @@ public class ActivityReportService : IActivityReportService
         => _configuration = configuration.Value;
 
     /// <inheritdoc />
-    public Task<FileResult> GenerateDetailedActivityReport(ActivityReportDto reportDto, CancellationToken cancellationToken = default)
-        => GenerateReport(reportDto, DETAILED_ACTIVITY_REPORT_FILE, cancellationToken);
-
-    /// <inheritdoc />
-    public async Task<ReportPreviewDto> GenerateDetailedActivityReportPreview(ActivityReportDto reportDto, int pageFrom, int pageTo, CancellationToken cancellationToken = default)
-        => await GenerateReportPreview(reportDto, DETAILED_ACTIVITY_REPORT_FILE, pageFrom, pageTo, cancellationToken);
-
-    private async Task<FileResult> GenerateReport(ActivityReportDto reportDto, string reportFile, CancellationToken cancellationToken)
+    public async Task<FileResult> GenerateActivityReport(ActivityReportDto reportDto, CancellationToken cancellationToken = default)
     {
-        using var report = CreateActivityReportInternal(reportDto, reportFile);
+        using var report = CreateActivityReportInternal(reportDto, GetReportFileName(reportDto.Parameters.ReportType));
+        // ReSharper disable once AccessToDisposedClosure
         report.StatusChanged += (_, _) => report.IsStopped = cancellationToken.IsCancellationRequested;
         await report.RenderAsync();
 
@@ -56,9 +51,11 @@ public class ActivityReportService : IActivityReportService
         return reportFileResult;
     }
 
-    private async Task<ReportPreviewDto> GenerateReportPreview(ActivityReportDto reportDto, string reportFile, int pageFrom, int pageTo, CancellationToken cancellationToken)
+    /// <inheritdoc />
+    public async Task<ReportPreviewDto> GenerateActivityReportPreview(ActivityReportDto reportDto, int pageFrom, int pageTo, CancellationToken cancellationToken = default)
     {
-        using var report = CreateActivityReportInternal(reportDto, reportFile);
+        using var report = CreateActivityReportInternal(reportDto, GetReportFileName(reportDto.Parameters.ReportType));
+        // ReSharper disable once AccessToDisposedClosure
         report.StatusChanged += (_, _) => report.IsStopped = cancellationToken.IsCancellationRequested;
         await report.RenderAsync();
 
@@ -85,6 +82,14 @@ public class ActivityReportService : IActivityReportService
         return result;
     }
 
+    private static string GetReportFileName(ActivityReportType reportType)
+        => reportType switch
+        {
+            ActivityReportType.Detailed => DETAILED_ACTIVITY_REPORT_FILE,
+            ActivityReportType.Daily => DAILY_ACTIVITY_REPORT_FILE,
+            _ => throw new ArgumentOutOfRangeException(nameof(reportType), reportType, null)
+        };
+
     private StiReport CreateActivityReportInternal(ActivityReportDto reportDto, string fileName)
     {
         StiLicense.Key = _configuration.StimulsoftLicenseKey;
@@ -100,8 +105,10 @@ public class ActivityReportService : IActivityReportService
         using var reportData = StiJsonToDataSetConverterV2.GetDataSet(reportDataJson);
         report.RegData("TimeSheet", reportData);
 
+        var title = reportDto.Translations[$"Title{reportDto.Parameters.ReportType}"];
+        var fromTo = $"{reportDto.Parameters.StartDate:yyyy-MM-dd} - {reportDto.Parameters.EndDate:yyyy-MM-dd}";
         var customers = reportDto.TimeSheets.Select(x => x.CustomerTitle).Distinct().OrderBy(x => x);
-        report.ReportName = $"{reportDto.Translations["Title"]} - {reportDto.Parameters.StartDate:yyyy-MM-dd} - {reportDto.Parameters.EndDate:yyyy-MM-dd} - {string.Join(", ", customers)}";
+        report.ReportName = $"{title} - {fromTo} - {string.Join(", ", customers)}";
 
         return report;
     }

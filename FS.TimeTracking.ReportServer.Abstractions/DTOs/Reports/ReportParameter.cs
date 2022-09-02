@@ -9,6 +9,16 @@ namespace FS.TimeTracking.ReportServer.Abstractions.DTOs.Reports;
 public class ReportParameter
 {
     /// <summary>
+    /// The type of the activity report.
+    /// </summary>
+    public ActivityReportType ReportType { get; set; }
+
+    /// <summary>
+    /// Gets or sets the report culture.
+    /// </summary>
+    public string Culture { get; set; }
+
+    /// <summary>
     /// Gets or sets the start date.
     /// </summary>
     public DateTimeOffset StartDate { get; set; }
@@ -17,9 +27,4 @@ public class ReportParameter
     /// Gets or sets the end date.
     /// </summary>
     public DateTimeOffset EndDate { get; set; }
-
-    /// <summary>
-    /// Gets or sets the report culture.
-    /// </summary>
-    public string Culture { get; set; }
 }
