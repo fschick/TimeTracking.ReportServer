@@ -34,11 +34,11 @@ public class ActivityReportService : IActivityReportService
     /// <inheritdoc />
     public async Task<FileResult> GenerateActivityReport(ActivityReportDto reportDto, CancellationToken cancellationToken = default)
     {
-        using var report = CreateActivityReportInternal(reportDto, GetReportFileName(reportDto.Parameters.ReportType));
-        // ReSharper disable once AccessToDisposedClosure
-        report.StatusChanged += (_, _) => report.IsStopped = cancellationToken.IsCancellationRequested;
-        await report.RenderAsync();
+        using var report = CreateActivityReport(reportDto, GetReportFileName(reportDto.Parameters.ReportType));
+        if (cancellationToken.IsCancellationRequested)
+            return null;
 
+        await RenderReport(report, cancellationToken);
         if (cancellationToken.IsCancellationRequested)
             return null;
 
@@ -54,11 +54,11 @@ public class ActivityReportService : IActivityReportService
     /// <inheritdoc />
     public async Task<ReportPreviewDto> GenerateActivityReportPreview(ActivityReportDto reportDto, int pageFrom, int pageTo, CancellationToken cancellationToken = default)
     {
-        using var report = CreateActivityReportInternal(reportDto, GetReportFileName(reportDto.Parameters.ReportType));
-        // ReSharper disable once AccessToDisposedClosure
-        report.StatusChanged += (_, _) => report.IsStopped = cancellationToken.IsCancellationRequested;
-        await report.RenderAsync();
+        using var report = CreateActivityReport(reportDto, GetReportFileName(reportDto.Parameters.ReportType));
+        if (cancellationToken.IsCancellationRequested)
+            return null;
 
+        await RenderReport(report, cancellationToken);
         if (cancellationToken.IsCancellationRequested)
             return null;
 
@@ -90,7 +90,7 @@ public class ActivityReportService : IActivityReportService
             _ => throw new ArgumentOutOfRangeException(nameof(reportType), reportType, null)
         };
 
-    private StiReport CreateActivityReportInternal(ActivityReportDto reportDto, string fileName)
+    private StiReport CreateActivityReport(ActivityReportDto reportDto, string fileName)
     {
         StiLicense.Key = _configuration.StimulsoftLicenseKey;
         var report = StiReport.CreateNewReport();
@@ -105,11 +105,25 @@ public class ActivityReportService : IActivityReportService
         using var reportData = StiJsonToDataSetConverterV2.GetDataSet(reportDataJson);
         report.RegData("TimeSheet", reportData);
 
+        report.Dictionary.Resources.Remove("ProviderLogo");
+        var imageRes = new Stimulsoft.Report.Dictionary.StiResource("ProviderLogo", Stimulsoft.Report.Dictionary.StiResourceType.Image, reportDto.Provider.Logo);
+        report.Dictionary.Resources.Add(imageRes);
+
         var title = reportDto.Translations[$"Title{reportDto.Parameters.ReportType}"];
         var fromTo = $"{reportDto.Parameters.StartDate:yyyy-MM-dd} - {reportDto.Parameters.EndDate:yyyy-MM-dd}";
         var customers = reportDto.TimeSheets.Select(x => x.CustomerTitle).Distinct().OrderBy(x => x);
         report.ReportName = $"{title} - {fromTo} - {string.Join(", ", customers)}";
 
         return report;
+    }
+
+    private static async Task RenderReport(StiReport report, CancellationToken cancellationToken = default)
+    {
+        report.StatusChanged += onReportOnStatusChanged;
+        await report.RenderAsync();
+        report.StatusChanged -= onReportOnStatusChanged;
+
+        void onReportOnStatusChanged(object o, EventArgs eventArgs)
+            => report.IsStopped = cancellationToken.IsCancellationRequested;
     }
 }

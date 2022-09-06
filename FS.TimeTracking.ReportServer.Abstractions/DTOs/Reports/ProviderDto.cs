@@ -1,4 +1,6 @@
-﻿namespace FS.TimeTracking.ReportServer.Abstractions.DTOs.Reports;
+﻿using FS.TimeTracking.ReportServer.Abstractions.Attributes.Validation;
+
+namespace FS.TimeTracking.ReportServer.Abstractions.DTOs.Reports;
 
 /// <summary>
 /// Provider information.
@@ -19,4 +21,10 @@ public class ProviderDto
     /// Gets or sets the department.
     /// </summary>
     public string Department { get; set; }
+
+    /// <summary>
+    /// Gets or sets the provider logo.
+    /// </summary>
+    [Image(MaxFileSize = 2 * 1024 * 1024 /*2 MB */, MaxImageWidth = 2000, MaxImageHeight = 2000)]
+    public byte[] Logo { get; set; }
 }
