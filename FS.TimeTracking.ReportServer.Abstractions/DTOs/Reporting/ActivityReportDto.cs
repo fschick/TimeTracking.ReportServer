@@ -10,8 +10,8 @@ public class ActivityReportDto
     /// <inheritdoc cref="ReportParameter" />
     public ReportParameter Parameters { get; set; }
 
-    /// <inheritdoc cref="ProviderDto" />
-    public ProviderDto Provider { get; set; }
+    /// <inheritdoc cref="ServiceProviderDto" />
+    public ServiceProviderDto ServiceProvider { get; set; }
 
     /// <summary>
     /// Gets or sets the translations.

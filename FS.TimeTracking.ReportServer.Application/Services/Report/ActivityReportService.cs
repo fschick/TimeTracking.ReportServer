@@ -106,7 +106,7 @@ public class ActivityReportService : IActivityReportService
         report.RegData("TimeSheet", reportData);
 
         report.Dictionary.Resources.Remove("ProviderLogo");
-        var imageRes = new Stimulsoft.Report.Dictionary.StiResource("ProviderLogo", Stimulsoft.Report.Dictionary.StiResourceType.Image, reportDto.Provider.Logo);
+        var imageRes = new Stimulsoft.Report.Dictionary.StiResource("ProviderLogo", Stimulsoft.Report.Dictionary.StiResourceType.Image, reportDto.ServiceProvider.Logo);
         report.Dictionary.Resources.Add(imageRes);
 
         var title = reportDto.Translations[$"Title{reportDto.Parameters.ReportType}"];

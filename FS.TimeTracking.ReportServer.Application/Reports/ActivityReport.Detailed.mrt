@@ -11,19 +11,7 @@
       </TimeSheet>
     </Databases>
     <DataSources isList="true" count="4">
-      <provider Ref="3" type="DataTableSource" isKey="true">
-        <Alias>provider</Alias>
-        <Columns isList="true" count="3">
-          <value>name,System.String</value>
-          <value>company,System.String</value>
-          <value>department,System.String</value>
-        </Columns>
-        <Dictionary isRef="1" />
-        <Key>21040fcf8fce45ae8a08ede8e758e929</Key>
-        <Name>provider</Name>
-        <NameInSource>TimeSheet.provider</NameInSource>
-      </provider>
-      <timeSheets Ref="4" type="DataTableSource" isKey="true">
+      <timeSheets Ref="3" type="DataTableSource" isKey="true">
         <Alias>timeSheets</Alias>
         <Columns isList="true" count="13">
           <value>id,System.String</value>
@@ -45,7 +33,7 @@
         <Name>timeSheets</Name>
         <NameInSource>TimeSheet.timeSheets</NameInSource>
       </timeSheets>
-      <parameters Ref="5" type="DataTableSource" isKey="true">
+      <parameters Ref="4" type="DataTableSource" isKey="true">
         <Alias>parameters</Alias>
         <Columns isList="true" count="4">
           <value>reportType,System.String</value>
@@ -58,6 +46,19 @@
         <Name>parameters</Name>
         <NameInSource>TimeSheet.parameters</NameInSource>
       </parameters>
+      <serviceProvider Ref="5" type="DataTableSource" isKey="true">
+        <Alias>serviceProvider</Alias>
+        <Columns isList="true" count="4">
+          <value>name,System.String</value>
+          <value>company,System.String</value>
+          <value>department,System.String</value>
+          <value>logo,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Key>a457f17351fb4562a6d45196ccb33b91</Key>
+        <Name>serviceProvider</Name>
+        <NameInSource>TimeSheet.serviceProvider</NameInSource>
+      </serviceProvider>
       <translations Ref="6" type="DataTableSource" isKey="true">
         <Alias>translations</Alias>
         <Columns isList="true" count="28">
@@ -67,7 +68,7 @@
           <value>Company,System.String</value>
           <value>Department,System.String</value>
           <value>Contact,System.String</value>
-          <value>Provider,System.String</value>
+          <value>ServiceProvider,System.String</value>
           <value>Id,System.String</value>
           <value>StartDate,System.String</value>
           <value>EndDate,System.String</value>
@@ -91,7 +92,7 @@
           <value>GroupByTitle,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>a63bc25bcd4840c780c65385f0b21f68</Key>
+        <Key>e09070549a14479bbf875ff3db02c6fb</Key>
         <Name>translations</Name>
         <NameInSource>TimeSheet.translations</NameInSource>
       </translations>
@@ -276,7 +277,7 @@
               <Name>ServiceProviderLabel</Name>
               <Page isRef="7" />
               <Parent isRef="8" />
-              <Text>{translations.Provider}</Text>
+              <Text>{translations.ServiceProvider}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </ServiceProviderLabel>
@@ -292,11 +293,11 @@
               <Page isRef="7" />
               <Parent isRef="8" />
               <Text>{Switch(
-	!string.IsNullOrEmpty(provider.name),
-	provider.name,
+	!string.IsNullOrEmpty(serviceProvider.name),
+	serviceProvider.name,
 
-	!string.IsNullOrEmpty(provider.company),
-	provider.company,
+	!string.IsNullOrEmpty(serviceProvider.company),
+	serviceProvider.company,
 
 	true,
 	"SETTING NOT FOUND"
@@ -324,7 +325,7 @@
                   <Name>ProviderCompanyLabel</Name>
                   <Page isRef="7" />
                   <Parent isRef="20" />
-                  <Text>{IIF(!string.IsNullOrEmpty(provider.company) &amp;&amp; !string.IsNullOrEmpty(provider.name),translations.Company,null)}</Text>
+                  <Text>{IIF(!string.IsNullOrEmpty(serviceProvider.company) &amp;&amp; !string.IsNullOrEmpty(serviceProvider.name),translations.Company,null)}</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </ProviderCompanyLabel>
@@ -342,7 +343,7 @@
                   <Name>ProviderDepartmentLabel</Name>
                   <Page isRef="7" />
                   <Parent isRef="20" />
-                  <Text>{IIF(!string.IsNullOrEmpty(provider.department),translations.Department,null)}</Text>
+                  <Text>{IIF(!string.IsNullOrEmpty(serviceProvider.department),translations.Department,null)}</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </ProviderDepartmentLabel>
@@ -373,7 +374,7 @@
                   <Name>ProviderCompany</Name>
                   <Page isRef="7" />
                   <Parent isRef="23" />
-                  <Text>{IIF(!string.IsNullOrEmpty(provider.name),provider.company,null)}</Text>
+                  <Text>{IIF(!string.IsNullOrEmpty(serviceProvider.name),serviceProvider.company,null)}</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </ProviderCompany>
@@ -392,7 +393,7 @@
                   <Page isRef="7" />
                   <Parent isRef="23" />
                   <ShiftMode>IncreasingSize, DecreasingSize</ShiftMode>
-                  <Text>{provider.department}</Text>
+                  <Text>{serviceProvider.department}</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </ProviderDepartment>
@@ -760,10 +761,10 @@
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>9/5/2022 9:21:22 AM</ReportChanged>
+  <ReportChanged>9/6/2022 3:28:40 PM</ReportChanged>
   <ReportCreated>3/7/2022 6:49:15 PM</ReportCreated>
   <ReportFile>D:\Prog\CSharp\Schick\FS.TimeTracking.ReportServer\FS.TimeTracking.ReportServer.Application\Reports\ActivityReport.Detailed.mrt</ReportFile>
-  <ReportGuid>b99dd159172b4245b95b31b5effc2642</ReportGuid>
+  <ReportGuid>dad56b69b720400db7e59aa1cd076bad</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
   <ReportVersion>2022.1.6.0</ReportVersion>

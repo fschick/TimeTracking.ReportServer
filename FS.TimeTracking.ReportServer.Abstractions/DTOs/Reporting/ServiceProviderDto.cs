@@ -3,9 +3,9 @@
 namespace FS.TimeTracking.ReportServer.Abstractions.DTOs.Reporting;
 
 /// <summary>
-/// Provider information.
+/// Service provider information.
 /// </summary>
-public class ProviderDto
+public class ServiceProviderDto
 {
     /// <summary>
     /// Gets or sets the name.
@@ -23,7 +23,7 @@ public class ProviderDto
     public string Department { get; set; }
 
     /// <summary>
-    /// Gets or sets the provider logo.
+    /// Gets or sets the service provider logo.
     /// </summary>
     [Image(MaxFileSize = 2 * 1024 * 1024 /*2 MB */, MaxImageWidth = 2000, MaxImageHeight = 2000)]
     public byte[] Logo { get; set; }
