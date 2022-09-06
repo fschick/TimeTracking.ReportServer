@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FS.TimeTracking.ReportServer.Abstractions.DTOs.Reports;
+namespace FS.TimeTracking.ReportServer.Abstractions.DTOs.Reporting;
 
 /// <summary>
 /// A report preview data transfer object.

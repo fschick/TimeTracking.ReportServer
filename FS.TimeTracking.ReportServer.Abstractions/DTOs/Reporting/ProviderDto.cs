@@ -1,6 +1,6 @@
 ﻿using FS.TimeTracking.ReportServer.Abstractions.Attributes.Validation;
 
-namespace FS.TimeTracking.ReportServer.Abstractions.DTOs.Reports;
+namespace FS.TimeTracking.ReportServer.Abstractions.DTOs.Reporting;
 
 /// <summary>
 /// Provider information.

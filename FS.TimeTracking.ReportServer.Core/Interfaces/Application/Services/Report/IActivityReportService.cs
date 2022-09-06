@@ -1,4 +1,4 @@
-﻿using FS.TimeTracking.ReportServer.Abstractions.DTOs.Reports;
+﻿using FS.TimeTracking.ReportServer.Abstractions.DTOs.Reporting;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;

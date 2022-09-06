@@ -1,4 +1,4 @@
-﻿namespace FS.TimeTracking.ReportServer.Abstractions.DTOs.Reports
+﻿namespace FS.TimeTracking.ReportServer.Abstractions.DTOs.Reporting
 {
     /// <summary>
     /// Activity report type

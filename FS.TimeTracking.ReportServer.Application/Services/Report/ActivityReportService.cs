@@ -1,4 +1,4 @@
-﻿using FS.TimeTracking.ReportServer.Abstractions.DTOs.Reports;
+﻿using FS.TimeTracking.ReportServer.Abstractions.DTOs.Reporting;
 using FS.TimeTracking.ReportServer.Core.Interfaces.Application.Services.Report;
 using FS.TimeTracking.ReportServer.Core.Models.Configuration;
 using Microsoft.AspNetCore.Mvc;

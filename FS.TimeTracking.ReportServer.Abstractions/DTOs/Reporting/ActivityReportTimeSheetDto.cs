@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace FS.TimeTracking.ReportServer.Abstractions.DTOs.Reports;
+namespace FS.TimeTracking.ReportServer.Abstractions.DTOs.Reporting;
 
 /// <summary>
 /// Time sheet report grid data transfer object.

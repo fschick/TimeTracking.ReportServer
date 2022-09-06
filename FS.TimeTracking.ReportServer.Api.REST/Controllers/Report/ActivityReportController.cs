@@ -1,4 +1,4 @@
-﻿using FS.TimeTracking.ReportServer.Abstractions.DTOs.Reports;
+﻿using FS.TimeTracking.ReportServer.Abstractions.DTOs.Reporting;
 using FS.TimeTracking.ReportServer.Api.REST.Routing;
 using FS.TimeTracking.ReportServer.Core.Interfaces.Application.Services.Report;
 using Microsoft.AspNetCore.Mvc;
