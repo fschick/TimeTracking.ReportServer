@@ -5,7 +5,6 @@
     <PackageDescription>$(Description)</PackageDescription>
     <PackageIcon>Schick.TimeTracking.ReportServer.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageProjectUrl>https://github.com/fschick/TimeTracking.ReportServer</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>$(Tags)</PackageTags>
   </PropertyGroup>
