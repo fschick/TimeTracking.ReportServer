@@ -71,7 +71,7 @@ public class ActivityReportService : IActivityReportService
         //return StiNetCoreReportResponse.ResponseAsSvg(report, new StiImageExportSettings { ImageFormat = StiImageFormat.Color, ImageType = StiImageType.Svg, PageRange = new StiPagesRange("1-4") });
         for (var currentPage = Math.Max(pageFrom, 1); currentPage <= pageTo && currentPage <= result.TotalPages; currentPage++)
         {
-            var exportSettings = new StiImageExportSettings(StiImageType.Png) { MultipleFiles = false, PageRange = new StiPagesRange($"{currentPage}-{currentPage}") };
+            var exportSettings = new StiImageExportSettings(StiImageType.Png) { MultipleFiles = false, PageRange = new StiPagesRange($"{currentPage}-{currentPage}"), ImageZoom = .5 };
             var page = StiNetCoreReportResponse.ResponseAsPng(report, exportSettings, false);
             result.Pages.Add(page.Data);
 
