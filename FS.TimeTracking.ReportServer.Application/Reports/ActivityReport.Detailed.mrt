@@ -7,7 +7,7 @@
         <Alias>TimeSheet</Alias>
         <Key>2151afde902845939a1db860ec0c2955</Key>
         <Name>TimeSheet</Name>
-        <PathData>http://localhost:5000/api/v1/ActivityReport/GetActivityReportData?reportType=detailed&amp;language=de-US&amp;timeSheetStartDate=%3C2022-05-31T00:00:00.000%2B01:00&amp;timeSheetEndDate=%3E=2022-05-01T00:00:00.000%2B01:00,ISNULL</PathData>
+        <PathData>http://localhost:5000/api/v1/ActivityReport/GetActivityReportData?reportType=detailed&amp;language=de-US&amp;timeSheetStartDate=%3C2022-10-31T00:00:00.000%2B01:00&amp;timeSheetEndDate=%3E=2022-10-01T00:00:00.000%2B01:00,ISNULL</PathData>
       </TimeSheet>
     </Databases>
     <DataSources isList="true" count="4">
@@ -61,7 +61,7 @@
       </serviceProvider>
       <translations Ref="6" type="DataTableSource" isKey="true">
         <Alias>translations</Alias>
-        <Columns isList="true" count="28">
+        <Columns isList="true" count="29">
           <value>Title,System.String</value>
           <value>TitleDaily,System.String</value>
           <value>TitleDetailed,System.String</value>
@@ -76,6 +76,7 @@
           <value>Issue,System.String</value>
           <value>Customer,System.String</value>
           <value>Project,System.String</value>
+          <value>WithoutProject,System.String</value>
           <value>Activity,System.String</value>
           <value>Order,System.String</value>
           <value>OrderNumber,System.String</value>
@@ -92,7 +93,7 @@
           <value>GroupByTitle,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>e09070549a14479bbf875ff3db02c6fb</Key>
+        <Key>f3782edeb9c74f9c8ff657fefdcf5f9f</Key>
         <Name>translations</Name>
         <NameInSource>TimeSheet.translations</NameInSource>
       </translations>
@@ -487,7 +488,11 @@
               <Name>Project</Name>
               <Page isRef="7" />
               <Parent isRef="30" />
-              <Text>{translations.Project}: {timeSheets.projectTitle}</Text>
+              <Text>{IIF(
+	!string.IsNullOrEmpty(timeSheets.projectTitle),
+	translations.Project + ": " + timeSheets.projectTitle,
+	translations.WithoutProject
+)}</Text>
               <TextBrush>Black</TextBrush>
               <TextQuality>Wysiwyg</TextQuality>
               <Type>Expression</Type>
@@ -761,10 +766,10 @@
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>9/6/2022 3:28:40 PM</ReportChanged>
+  <ReportChanged>10/23/2022 10:14:21 AM</ReportChanged>
   <ReportCreated>3/7/2022 6:49:15 PM</ReportCreated>
   <ReportFile>D:\Prog\CSharp\Schick\FS.TimeTracking.ReportServer\FS.TimeTracking.ReportServer.Application\Reports\ActivityReport.Detailed.mrt</ReportFile>
-  <ReportGuid>dad56b69b720400db7e59aa1cd076bad</ReportGuid>
+  <ReportGuid>ebd606b2cb4f42ae81d98c5e3cff7e01</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
   <ReportVersion>2022.1.6.0</ReportVersion>
