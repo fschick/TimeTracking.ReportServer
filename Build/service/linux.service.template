@@ -1,0 +1,17 @@
+[Unit]
+Description=FS.TimeTracking.ReportServer
+
+[Service]
+Type=notify
+ExecStart=/opt/FS.TimeTracking.ReportServer/bin/FS.TimeTracking.ReportServer
+WorkingDirectory=/opt/FS.TimeTracking.ReportServer/bin
+SyslogIdentifier=FS.TimeTracking.ReportServer
+Restart=on-failure
+RestartSec=10
+User=dotnetuser
+Group=dotnetuser
+Environment=ASPNETCORE_ENVIRONMENT=Production
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -17,20 +17,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FS.TimeTracking.ReportServe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "targets", "targets", "{6E402556-CAF2-40DA-9B50-3D47009CEAC0}"
 	ProjectSection(SolutionItems) = preProject
-		Build\targets\build_core.props = Build\targets\build_core.props
-		Build\targets\build_nuget.props = Build\targets\build_nuget.props
-		Build\targets\build_tests.props = Build\targets\build_tests.props
-		Build\targets\build_version.props = Build\targets\build_version.props
-		Build\targets\build_xml_documentation.props = Build\targets\build_xml_documentation.props
+		Build\targets\net_core.props = Build\targets\net_core.props
+		Build\targets\nuget.props = Build\targets\nuget.props
+		Build\targets\tests.props = Build\targets\tests.props
+		Build\targets\version.props = Build\targets\version.props
+		Build\targets\xml_documentation.props = Build\targets\xml_documentation.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{C44D47A6-DA86-4A0F-8869-9662680F3617}"
 	ProjectSection(SolutionItems) = preProject
-		Build\scripts\build.ps1 = Build\scripts\build.ps1
-		Build\scripts\publish_client.ps1 = Build\scripts\publish_client.ps1
-		Build\scripts\publish_server.ps1 = Build\scripts\publish_server.ps1
-		Build\scripts\shared.ps1 = Build\scripts\shared.ps1
-		Build\scripts\test.ps1 = Build\scripts\test.ps1
+		Build\scripts\_core.ps1 = Build\scripts\_core.ps1
+		Build\scripts\reportserver.build.ps1 = Build\scripts\reportserver.build.ps1
+		Build\scripts\reportserver.publish.ps1 = Build\scripts\reportserver.publish.ps1
+		Build\scripts\reportserver.test.ps1 = Build\scripts\reportserver.test.ps1
+		Build\scripts\reportserver_client.publish.ps1 = Build\scripts\reportserver_client.publish.ps1
 	EndProjectSection
 EndProject
 Global

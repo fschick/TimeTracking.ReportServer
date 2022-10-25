@@ -7,7 +7,7 @@ param (
 	[Parameter(Mandatory=$false)] [String] $apiKey
 )
 
-. $PSScriptRoot/shared.ps1
+. $PSScriptRoot/_core.ps1
 
 Push-Location $PSScriptRoot/../..
 

@@ -2,7 +2,7 @@ FROM schicksoftware/dotnet6.0-jre17-nodejs16.0:latest AS build
 ARG CI_PROJECT_NAME
 ARG CI_COMMIT_REF_NAME
 COPY / .
-RUN pwsh -Command Build/scripts/publish_server.ps1 -version "${CI_COMMIT_REF_NAME}" -runtime linux-x64 -publshFolder "${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}"
+RUN pwsh -Command Build/scripts/reportserver.publish.ps1 -version "${CI_COMMIT_REF_NAME}" -runtime linux-x64 -publshFolder "${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}"
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0.7-bullseye-slim AS base
 ARG CI_PROJECT_NAME

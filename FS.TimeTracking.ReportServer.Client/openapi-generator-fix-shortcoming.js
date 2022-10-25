@@ -2,9 +2,9 @@ const {resolve} = require('path');
 const {readdir, readFile, writeFile} = require('fs').promises;
 
 const projectImports = `
-  <Import Project="../../../Build/targets/build_core.props" />
-  <Import Project="../../../Build/targets/build_version.props" />
-  <Import Project="../../../Build/targets/build_nuget.props" />
+  <Import Project="../../../Build/targets/net_core.props" />
+  <Import Project="../../../Build/targets/version.props" />
+  <Import Project="../../../Build/targets/nuget.props" />
 
   <ItemGroup>
     <None Include="../../../FS.TimeTracking.ReportServer.png" Pack="true" PackagePath="Schick.TimeTracking.ReportServer.png"/>
