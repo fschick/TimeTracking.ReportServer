@@ -7,8 +7,8 @@ namespace FS.TimeTracking.ReportServer.Abstractions.DTOs.Reporting;
 /// </summary>
 public class ActivityReportDto
 {
-    /// <inheritdoc cref="ReportParameter" />
-    public ReportParameter Parameters { get; set; }
+    /// <inheritdoc cref="ReportParameterDto" />
+    public ReportParameterDto Parameters { get; set; }
 
     /// <inheritdoc cref="ServiceProviderDto" />
     public ServiceProviderDto ServiceProvider { get; set; }
