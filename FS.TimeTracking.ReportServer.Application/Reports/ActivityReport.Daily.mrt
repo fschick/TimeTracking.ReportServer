@@ -7,7 +7,7 @@
         <Alias>TimeSheet</Alias>
         <Key>2151afde902845939a1db860ec0c2955</Key>
         <Name>TimeSheet</Name>
-        <PathData>http://localhost:5000/api/v1/ActivityReport/GetActivityReportData?reportType=detailed&amp;language=de-US&amp;timeSheetStartDate=%3C2022-10-31T00:00:00.000%2B01:00&amp;timeSheetEndDate=%3E=2022-10-01T00:00:00.000%2B01:00,ISNULL</PathData>
+        <PathData>http://develop.home.f-schick.de:5000/api/v1/ActivityReport/GetActivityReportData?timeSheetStartDate=%3C2022-11-01T00%3A00%3A00.000%2B01%3A00&amp;timeSheetEndDate=%3E%3D2022-10-01T00%3A00%3A00.000%2B02%3A00%2CISNULL&amp;timeSheetBillable=true&amp;customerId=256e11fa-548b-4d85-9308-b42a38b85e9e&amp;language=de&amp;reportType=daily</PathData>
       </TimeSheet>
     </Databases>
     <DataSources isList="true" count="4">
@@ -33,20 +33,7 @@
         <Name>timeSheets</Name>
         <NameInSource>TimeSheet.timeSheets</NameInSource>
       </timeSheets>
-      <parameters Ref="4" type="DataTableSource" isKey="true">
-        <Alias>parameters</Alias>
-        <Columns isList="true" count="4">
-          <value>reportType,System.String</value>
-          <value>culture,System.String</value>
-          <value>startDate,System.DateTime</value>
-          <value>endDate,System.DateTime</value>
-        </Columns>
-        <Dictionary isRef="1" />
-        <Key>08217a4102ad4c6e9803c130f0175f14</Key>
-        <Name>parameters</Name>
-        <NameInSource>TimeSheet.parameters</NameInSource>
-      </parameters>
-      <serviceProvider Ref="5" type="DataTableSource" isKey="true">
+      <serviceProvider Ref="4" type="DataTableSource" isKey="true">
         <Alias>serviceProvider</Alias>
         <Columns isList="true" count="4">
           <value>name,System.String</value>
@@ -59,7 +46,7 @@
         <Name>serviceProvider</Name>
         <NameInSource>TimeSheet.serviceProvider</NameInSource>
       </serviceProvider>
-      <translations Ref="6" type="DataTableSource" isKey="true">
+      <translations Ref="5" type="DataTableSource" isKey="true">
         <Alias>translations</Alias>
         <Columns isList="true" count="29">
           <value>Title,System.String</value>
@@ -97,6 +84,20 @@
         <Name>translations</Name>
         <NameInSource>TimeSheet.translations</NameInSource>
       </translations>
+      <parameters Ref="6" type="DataTableSource" isKey="true">
+        <Alias>parameters</Alias>
+        <Columns isList="true" count="5">
+          <value>reportType,System.String</value>
+          <value>culture,System.String</value>
+          <value>targetTimeZoneId,System.String</value>
+          <value>startDate,System.DateTime</value>
+          <value>endDate,System.DateTime</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Key>360979df80a243389c6ae48f183e6017</Key>
+        <Name>parameters</Name>
+        <NameInSource>TimeSheet.parameters</NameInSource>
+      </parameters>
     </DataSources>
     <Relations isList="true" count="0" />
     <Report isRef="0" />
@@ -432,7 +433,7 @@
               <Name>PeriodValue</Name>
               <Page isRef="7" />
               <Parent isRef="8" />
-              <Text>{string.Format("{0:d} - {1:d}", parameters.startDate, parameters.endDate)}</Text>
+              <Text>{string.Format("{0:d} - {1:d}", ToZimeZone(parameters.startDate, parameters.targetTimeZoneId), ToZimeZone(parameters.endDate, parameters.targetTimeZoneId))}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </PeriodValue>
@@ -536,7 +537,7 @@
               <Name>Workday</Name>
               <Page isRef="7" />
               <Parent isRef="35" />
-              <Text>{Format("{0:D}", timeSheets.startDate)}</Text>
+              <Text>{Format("{0:D}", ToZimeZone(timeSheets.startDate, parameters.targetTimeZoneId))}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Workday>
@@ -556,7 +557,7 @@
               <Type>Expression</Type>
             </Text1>
           </Components>
-          <Condition>{timeSheets.startDate.Date}</Condition>
+          <Condition>{ToZimeZone(timeSheets.startDate.Date, parameters.targetTimeZoneId)}</Condition>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
           <KeepGroupTogether>True</KeepGroupTogether>
@@ -806,10 +807,10 @@
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>10/23/2022 10:12:51 AM</ReportChanged>
+  <ReportChanged>11/6/2022 5:56:40 PM</ReportChanged>
   <ReportCreated>3/7/2022 6:49:15 PM</ReportCreated>
   <ReportFile>D:\Prog\CSharp\Schick\FS.TimeTracking.ReportServer\FS.TimeTracking.ReportServer.Application\Reports\ActivityReport.Daily.mrt</ReportFile>
-  <ReportGuid>6b3a01b082454eb1908b39e4b92b6c7b</ReportGuid>
+  <ReportGuid>77e2481e52a04c6fb5f85dab2282faee</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
   <ReportVersion>2022.1.6.0</ReportVersion>
@@ -829,7 +830,8 @@ namespace Reports
     {
         public Report() {
             this.InitializeComponent();
-			RegisterFunctions();
+			RegisterToHoursFunction();
+			RegisterToZimeZoneFunction();
         }
 		
 		public static string ToHours(TimeSpan timeSpan)
@@ -837,7 +839,12 @@ namespace Reports
 			return string.Format("{0:00}:{1:00}", Math.Truncate(timeSpan.TotalHours), timeSpan.Minutes);
 		}
 		
-		public static void RegisterFunctions()
+		public static DateTime ToZimeZone(DateTime dateTimeUtc, string timeZoneId)
+		{
+			return TimeZoneInfo.ConvertTime(dateTimeUtc, TimeZoneInfo.FindSystemTimeZoneById(timeZoneId));
+		}
+		
+		public static void RegisterToHoursFunction()
 		{
 			var category = "Custom";
 			var groupFunctionName = "ToHours";
@@ -849,6 +856,24 @@ namespace Reports
 			var argumentTypes = new[] { typeof(string) };
 			var argumentNames = new[] { "timeSpan" };
 			var argumentDescriptions = new[] { "TimeSpan object to format" };
+
+			Stimulsoft.Report.Dictionary.StiFunctions.RemoveFunction(functionName);
+			Stimulsoft.Report.Dictionary.StiFunctions.AddFunction(category, groupFunctionName, functionName, description,
+				typeOfFunction, returnType, returnDescription, argumentTypes, argumentNames, argumentDescriptions);
+		}
+		
+		public static void RegisterToZimeZoneFunction()
+		{
+			var category = "Custom";
+			var groupFunctionName = "ToZimeZone";
+			var functionName = "ToZimeZone";
+			var description = "Converts a UTC date/time to time zone given by it's identifier";
+			var typeOfFunction = typeof(Report);
+			var returnType = typeof(DateTime);
+			var returnDescription = "The date/time converted to time zone given by it's identifier";
+			var argumentTypes = new[] { typeof(DateTime), typeof(string) };
+			var argumentNames = new[] { "dateTimeUtc", "timeZoneId" };
+			var argumentDescriptions = new[] { "The date/time to convert", "The identifier of the time zone to convert to" };
 
 			Stimulsoft.Report.Dictionary.StiFunctions.RemoveFunction(functionName);
 			Stimulsoft.Report.Dictionary.StiFunctions.AddFunction(category, groupFunctionName, functionName, description,
