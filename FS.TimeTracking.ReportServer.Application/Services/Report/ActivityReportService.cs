@@ -1,6 +1,12 @@
 ﻿using FS.TimeTracking.ReportServer.Abstractions.DTOs.Reporting;
 using FS.TimeTracking.ReportServer.Core.Interfaces.Application.Services.Report;
 using FS.TimeTracking.ReportServer.Core.Models.Configuration;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -8,12 +14,6 @@ using Stimulsoft.Base;
 using Stimulsoft.Report;
 using Stimulsoft.Report.Export;
 using Stimulsoft.Report.Mvc;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FS.TimeTracking.ReportServer.Application.Services.Report;
 
@@ -42,7 +42,16 @@ public class ActivityReportService : IActivityReportService
         if (cancellationToken.IsCancellationRequested)
             return null;
 
-        var reportPdf = StiNetCoreReportResponse.ResponseAsPdf(report);
+        var pdfExportSettings = new StiPdfExportSettings
+        {
+            Compressed = true,
+            ImageCompressionMethod = StiPdfImageCompressionMethod.Jpeg,
+            ImageQuality = 90,
+            ImageResolution = 300,
+            ImageResolutionMode = StiImageResolutionMode.NoMoreThan,
+        };
+
+        var reportPdf = StiNetCoreReportResponse.ResponseAsPdf(report, pdfExportSettings);
         var reportFileResult = new FileContentResult(reportPdf.Data, "application/pdf")
         {
             FileDownloadName = reportPdf.FileName
