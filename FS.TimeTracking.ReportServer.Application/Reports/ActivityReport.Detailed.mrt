@@ -125,7 +125,7 @@
               <ComponentStyle>Title 1</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Yummo TTF Regular,24</Font>
+              <Font>Arial,22</Font>
               <Margins>0,0,0,0</Margins>
               <Name>ActivityReportLabel</Name>
               <Page isRef="7" />
@@ -140,7 +140,7 @@
               <ComponentStyle>Title 2</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,13</Font>
+              <Font>Arial,13</Font>
               <Margins>0,0,0,0</Margins>
               <Name>CustomerLabel</Name>
               <Page isRef="7" />
@@ -156,7 +156,7 @@
               <ComponentStyle>Title 2 Data</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,13</Font>
+              <Font>Arial,11</Font>
               <Margins>0,0,0,0</Margins>
               <Name>Customer</Name>
               <Page isRef="7" />
@@ -181,7 +181,7 @@
                   <Conditions isList="true" count="0" />
                   <DockStyle>Top</DockStyle>
                   <Expressions isList="true" count="0" />
-                  <Font>Source Sans Pro,10</Font>
+                  <Font>Arial,10</Font>
                   <Margins>0,0,0,0</Margins>
                   <Name>CustomerDepartmentLabel</Name>
                   <Page isRef="7" />
@@ -199,7 +199,7 @@
                   <Conditions isList="true" count="0" />
                   <DockStyle>Top</DockStyle>
                   <Expressions isList="true" count="0" />
-                  <Font>Source Sans Pro,10</Font>
+                  <Font>Arial,10</Font>
                   <Margins>0,0,0,0</Margins>
                   <Name>CustomerContactLabel</Name>
                   <Page isRef="7" />
@@ -232,7 +232,7 @@
                   <Conditions isList="true" count="0" />
                   <DockStyle>Top</DockStyle>
                   <Expressions isList="true" count="0" />
-                  <Font>Source Sans Pro,10</Font>
+                  <Font>Arial,10</Font>
                   <Margins>0,0,0,0</Margins>
                   <Name>CustomerDepartment</Name>
                   <Page isRef="7" />
@@ -251,7 +251,7 @@
                   <Conditions isList="true" count="0" />
                   <DockStyle>Top</DockStyle>
                   <Expressions isList="true" count="0" />
-                  <Font>Source Sans Pro,10</Font>
+                  <Font>Arial,10</Font>
                   <Margins>0,0,0,0</Margins>
                   <Name>CustomerContact</Name>
                   <Page isRef="7" />
@@ -274,7 +274,7 @@
               <ComponentStyle>Title 2</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,13</Font>
+              <Font>Arial,13</Font>
               <Margins>0,0,0,0</Margins>
               <Name>ServiceProviderLabel</Name>
               <Page isRef="7" />
@@ -289,7 +289,7 @@
               <ComponentStyle>Title 2 Data</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,13</Font>
+              <Font>Arial,11</Font>
               <Margins>0,0,0,0</Margins>
               <Name>ServiceProvider</Name>
               <Page isRef="7" />
@@ -322,7 +322,7 @@
                   <Conditions isList="true" count="0" />
                   <DockStyle>Top</DockStyle>
                   <Expressions isList="true" count="0" />
-                  <Font>Source Sans Pro,10</Font>
+                  <Font>Arial,10</Font>
                   <Margins>0,0,0,0</Margins>
                   <Name>ProviderCompanyLabel</Name>
                   <Page isRef="7" />
@@ -340,7 +340,7 @@
                   <Conditions isList="true" count="0" />
                   <DockStyle>Top</DockStyle>
                   <Expressions isList="true" count="0" />
-                  <Font>Source Sans Pro,10</Font>
+                  <Font>Arial,10</Font>
                   <Margins>0,0,0,0</Margins>
                   <Name>ProviderDepartmentLabel</Name>
                   <Page isRef="7" />
@@ -371,7 +371,7 @@
                   <Conditions isList="true" count="0" />
                   <DockStyle>Top</DockStyle>
                   <Expressions isList="true" count="0" />
-                  <Font>Source Sans Pro,10</Font>
+                  <Font>Arial,10</Font>
                   <Margins>0,0,0,0</Margins>
                   <Name>ProviderCompany</Name>
                   <Page isRef="7" />
@@ -389,7 +389,7 @@
                   <Conditions isList="true" count="0" />
                   <DockStyle>Top</DockStyle>
                   <Expressions isList="true" count="0" />
-                  <Font>Source Sans Pro,10</Font>
+                  <Font>Arial,10</Font>
                   <Margins>0,0,0,0</Margins>
                   <Name>ProviderDepartment</Name>
                   <Page isRef="7" />
@@ -412,7 +412,7 @@
               <ComponentStyle>Title 2</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,13</Font>
+              <Font>Arial,13</Font>
               <Margins>0,0,0,0</Margins>
               <Name>PeriodLabel</Name>
               <Page isRef="7" />
@@ -427,7 +427,7 @@
               <ComponentStyle>Title 2 Data</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,13</Font>
+              <Font>Arial,11</Font>
               <Margins>0,0,0,0</Margins>
               <Name>PeriodValue</Name>
               <Page isRef="7" />
@@ -484,7 +484,7 @@
               <ComponentStyle>Title 3</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,10,Bold</Font>
+              <Font>Arial,10,Bold</Font>
               <Margins>0,0,0,0</Margins>
               <Name>Project</Name>
               <Page isRef="7" />
@@ -532,7 +532,7 @@
               <ComponentStyle>Title 4</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro Semibold,10,Italic</Font>
+              <Font>Arial,10,Italic</Font>
               <Margins>0,0,0,0</Margins>
               <Name>Workday</Name>
               <Page isRef="7" />
@@ -547,7 +547,7 @@
               <ComponentStyle>Title 4</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro Semibold,10,Italic</Font>
+              <Font>Arial,10,Italic</Font>
               <Margins>0,0,0,0</Margins>
               <Name>Text1</Name>
               <Page isRef="7" />
@@ -578,7 +578,7 @@
               <ComponentStyle>Text</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,10</Font>
+              <Font>Arial,10</Font>
               <Margins>0,0,0,0</Margins>
               <Name>TimeSheetFromTo</Name>
               <Page isRef="7" />
@@ -595,7 +595,7 @@
               <ComponentStyle>Text</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,10</Font>
+              <Font>Arial,10</Font>
               <Margins>0,0,0,0</Margins>
               <Name>TimeSheetDuration</Name>
               <Page isRef="7" />
@@ -612,7 +612,7 @@
               <ComponentStyle>Text</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,10</Font>
+              <Font>Arial,10</Font>
               <Margins>0,0,0,0</Margins>
               <Name>TimeSheetDetails</Name>
               <Page isRef="7" />
@@ -654,7 +654,7 @@
               <ComponentStyle>Title 4</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro Semibold,10,Italic</Font>
+              <Font>Arial,10,Italic</Font>
               <Margins>0,0,0,0</Margins>
               <Name>Text3</Name>
               <Page isRef="7" />
@@ -669,7 +669,7 @@
               <ComponentStyle>Title 4</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro Semibold,10,Italic</Font>
+              <Font>Arial,10,Italic</Font>
               <Margins>0,0,0,0</Margins>
               <Name>Text4</Name>
               <Page isRef="7" />
@@ -696,7 +696,7 @@
               <ComponentStyle>Title 3</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,10,Bold</Font>
+              <Font>Arial,10,Bold</Font>
               <Margins>0,0,0,0</Margins>
               <Name>Text5</Name>
               <Page isRef="7" />
@@ -711,7 +711,7 @@
               <ComponentStyle>Title 3</ComponentStyle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>Source Sans Pro,10,Bold</Font>
+              <Font>Arial,10,Bold</Font>
               <Margins>0,0,0,0</Margins>
               <Name>Text2</Name>
               <Page isRef="7" />
@@ -767,10 +767,10 @@
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>11/6/2022 2:21:01 PM</ReportChanged>
+  <ReportChanged>2/5/2023 8:51:45 PM</ReportChanged>
   <ReportCreated>3/7/2022 6:49:15 PM</ReportCreated>
   <ReportFile>D:\Prog\CSharp\Schick\FS.TimeTracking.ReportServer\FS.TimeTracking.ReportServer.Application\Reports\ActivityReport.Detailed.mrt</ReportFile>
-  <ReportGuid>b5daa846a141401a8f84f6477d2d2dbc</ReportGuid>
+  <ReportGuid>678c2eebfd8745d9a0a1c2433eaa2ef7</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
   <ReportVersion>2022.1.6.0</ReportVersion>
@@ -850,7 +850,7 @@ namespace Reports
     <Title_x0020_1 Ref="52" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Brush>Transparent</Brush>
       <Conditions isList="true" count="0" />
-      <Font>Yummo TTF Regular,24</Font>
+      <Font>Arial,22</Font>
       <Name>Title 1</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>Black</TextBrush>
@@ -858,7 +858,7 @@ namespace Reports
     <Text Ref="53" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Brush>Transparent</Brush>
       <Conditions isList="true" count="0" />
-      <Font>Source Sans Pro,10</Font>
+      <Font>Arial,10</Font>
       <Name>Text</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>Black</TextBrush>
@@ -866,7 +866,7 @@ namespace Reports
     <Title_x0020_2 Ref="54" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Brush>Transparent</Brush>
       <Conditions isList="true" count="0" />
-      <Font>Source Sans Pro,13</Font>
+      <Font>Arial,13</Font>
       <Name>Title 2</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>Black</TextBrush>
@@ -874,7 +874,7 @@ namespace Reports
     <Title_x0020_3 Ref="55" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Brush>Transparent</Brush>
       <Conditions isList="true" count="0" />
-      <Font>Source Sans Pro,10,Bold</Font>
+      <Font>Arial,10,Bold</Font>
       <Name>Title 3</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>Black</TextBrush>
@@ -882,7 +882,7 @@ namespace Reports
     <Title_x0020_2_x0020_Data Ref="56" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Brush>Transparent</Brush>
       <Conditions isList="true" count="0" />
-      <Font>Source Sans Pro,13</Font>
+      <Font>Arial,11</Font>
       <Name>Title 2 Data</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>Black</TextBrush>
@@ -890,7 +890,7 @@ namespace Reports
     <Title_x0020_3_x0020_Data Ref="57" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Brush>Transparent</Brush>
       <Conditions isList="true" count="0" />
-      <Font>Source Sans Pro,10</Font>
+      <Font>Arial,10</Font>
       <Name>Title 3 Data</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>Black</TextBrush>
@@ -898,7 +898,7 @@ namespace Reports
     <Title_x0020_4 Ref="58" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Brush>Transparent</Brush>
       <Conditions isList="true" count="0" />
-      <Font>Source Sans Pro Semibold,10,Italic</Font>
+      <Font>Arial,10,Italic</Font>
       <Name>Title 4</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>Black</TextBrush>
