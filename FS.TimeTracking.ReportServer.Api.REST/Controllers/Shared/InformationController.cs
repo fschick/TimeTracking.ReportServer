@@ -1,9 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using FS.TimeTracking.ReportServer.Abstractions.DTOs.Shared;
+﻿using FS.TimeTracking.ReportServer.Abstractions.DTOs.Shared;
 using FS.TimeTracking.ReportServer.Api.REST.Routing;
 using FS.TimeTracking.ReportServer.Core.Interfaces.Application.Services.Shared;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace FS.TimeTracking.ReportServer.Api.REST.Controllers.Shared;
 

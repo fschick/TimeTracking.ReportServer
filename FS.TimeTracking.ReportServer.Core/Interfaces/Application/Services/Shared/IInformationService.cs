@@ -1,6 +1,6 @@
-﻿using System.Threading;
+﻿using FS.TimeTracking.ReportServer.Abstractions.DTOs.Shared;
+using System.Threading;
 using System.Threading.Tasks;
-using FS.TimeTracking.ReportServer.Abstractions.DTOs.Shared;
 
 namespace FS.TimeTracking.ReportServer.Core.Interfaces.Application.Services.Shared;
 
