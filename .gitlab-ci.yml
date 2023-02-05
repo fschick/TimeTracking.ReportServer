@@ -109,9 +109,9 @@ deploy_windows:
     # Run only when version-tag is pushed (- if: $CI_COMMIT_TAG =~ /^\d+\.\d+.*$/)
     - if: $CI_COMMIT_TAG =~ /^\d+\.\d+.*$/
   artifacts:
-    name: "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME-win10-x64"
+    name: "$CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-win10-x64"
     paths:
-      - "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME"
+      - "$CI_PROJECT_NAME-$CI_COMMIT_REF_NAME"
     expire_in: 1 month
 
 deploy_linux:
@@ -125,9 +125,9 @@ deploy_linux:
     # Run only when version-tag is pushed (- if: $CI_COMMIT_TAG =~ /^\d+\.\d+.*$/)
     - if: $CI_COMMIT_TAG =~ /^\d+\.\d+.*$/
   artifacts:
-    name: "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME-linux-x64"
+    name: "$CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-linux-x64"
     paths:
-      - "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME"
+      - "$CI_PROJECT_NAME-$CI_COMMIT_REF_NAME"
     expire_in: 1 month
 
 deploy_private_client:
@@ -141,9 +141,9 @@ deploy_private_client:
     # Run only when version-tag is pushed (- if: $CI_COMMIT_TAG =~ /^\d+\.\d+.*$/)
     - if: $CI_COMMIT_TAG =~ /^\d+\.\d+.*$/
   artifacts:
-    name: "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME-client"
+    name: "$CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-client"
     paths:
-      - "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME"
+      - "$CI_PROJECT_NAME-$CI_COMMIT_REF_NAME"
     expire_in: 1 month
 
 deploy_public_client:
@@ -157,7 +157,7 @@ deploy_public_client:
     # Run only when non alpha/beta version-tag is pushed (- if: $CI_COMMIT_TAG =~ /^\d+\.\d+\.\d+$/)
     - if: $CI_COMMIT_TAG =~ /^\d+\.\d+\.\d+$/
   artifacts:
-    name: "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME-client"
+    name: "$CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-client"
     paths:
-      - "$env:CI_PROJECT_NAME-$env:CI_COMMIT_REF_NAME"
+      - "$CI_PROJECT_NAME-$CI_COMMIT_REF_NAME"
     expire_in: 1 month
