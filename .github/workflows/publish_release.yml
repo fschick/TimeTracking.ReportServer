@@ -109,8 +109,7 @@ jobs:
         tags: |
           schicksoftware/timetracking.reportserver:${{github.ref_name}}
           schicksoftware/timetracking.reportserver:latest
-        # push: ${{ github.ref == 'refs/heads/main' }}
-        push: ${{ github.ref == 'refs/heads/main-fs-github' }}
+        push: ${{ !contains(github.ref, 'alpha') && !contains(github.ref, 'beta') }}
         # push: true
 
     - name: Image digest
