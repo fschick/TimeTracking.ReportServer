@@ -110,7 +110,8 @@ jobs:
           schicksoftware/timetracking.reportserver:${{github.ref_name}}
           schicksoftware/timetracking.reportserver:latest
         # push: ${{ github.ref == 'refs/heads/main' }}
-        push: true
+        push: ${{ github.ref == 'refs/heads/main-fs-github' }}
+        # push: true
 
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}
