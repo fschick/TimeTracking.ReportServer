@@ -5,88 +5,88 @@ on:
     types: [ published ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.x
-    - name: Build
-      shell: pwsh
-      run: Build/scripts/reportserver.build.ps1
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: Checkout
+#      uses: actions/checkout@v2
+#    - name: Setup .NET
+#      uses: actions/setup-dotnet@v1
+#      with:
+#        dotnet-version: 6.0.x
+#    - name: Build
+#      shell: pwsh
+#      run: Build/scripts/reportserver.build.ps1
+#  
+#  test:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: Checkout
+#      uses: actions/checkout@v2
+#    - name: Setup .NET
+#      uses: actions/setup-dotnet@v1
+#      with:
+#        dotnet-version: 6.0.x
+#    - name: Test
+#      shell: pwsh
+#      run: Build/scripts/reportserver.test.ps1
+#    - name: Upload test results
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: test-results
+#        path: |
+#          ./**/TestResults/*.trx
+#          ./**/TestResults/*.html
+#        retention-days: 10
+#      if: ${{ always() }}
   
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.x
-    - name: Test
-      shell: pwsh
-      run: Build/scripts/reportserver.test.ps1
-    - name: Upload test results
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-results
-        path: |
-          ./**/TestResults/*.trx
-          ./**/TestResults/*.html
-        retention-days: 10
-      if: ${{ always() }}
-  
-  publish_windows:
-    needs: [build, test]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.x
-    - name: Publish
-      shell: pwsh
-      run: Build/scripts/reportserver.publish.ps1 -version ${{github.ref_name}} -runtime win10-x64 -publshFolder timetracking.reportserver.${{github.ref_name}}.windows
-    - name: Create Windows release artifact
-      uses: thedoctor0/zip-release@master
-      with:
-        type: 'zip'
-        filename: timetracking.reportserver.${{github.ref_name}}.windows.zip
-        path: timetracking.reportserver.${{github.ref_name}}.windows
-    - name: Upload Windows release artifact
-      uses: softprops/action-gh-release@v1
-      with:
-        files: timetracking.reportserver.${{github.ref_name}}.windows.zip
-  
-  publish_linux:
-    needs: [build, test]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.x
-    - name: Publish
-      shell: pwsh
-      run: Build/scripts/reportserver.publish.ps1 -version ${{github.ref_name}} -runtime linux-x64 -publshFolder timetracking.reportserver.${{github.ref_name}}.linux
-    - name: Create Linux release artifact
-      uses: thedoctor0/zip-release@master
-      with:
-        type: 'zip'
-        filename: timetracking.reportserver.${{github.ref_name}}.linux.zip
-        path: timetracking.reportserver.${{github.ref_name}}.linux
-    - name: Upload Linux release artifact
-      uses: softprops/action-gh-release@v1
-      with:
-        files: timetracking.reportserver.${{github.ref_name}}.linux.zip
+#  publish_windows:
+#    needs: [build, test]
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: Checkout
+#      uses: actions/checkout@v2
+#    - name: Setup .NET
+#      uses: actions/setup-dotnet@v1
+#      with:
+#        dotnet-version: 6.0.x
+#    - name: Publish
+#      shell: pwsh
+#      run: Build/scripts/reportserver.publish.ps1 -version ${{github.ref_name}} -runtime win10-x64 -publshFolder timetracking.reportserver.${{github.ref_name}}.windows
+#    - name: Create Windows release artifact
+#      uses: thedoctor0/zip-release@master
+#      with:
+#        type: 'zip'
+#        filename: timetracking.reportserver.${{github.ref_name}}.windows.zip
+#        path: timetracking.reportserver.${{github.ref_name}}.windows
+#    - name: Upload Windows release artifact
+#      uses: softprops/action-gh-release@v1
+#      with:
+#        files: timetracking.reportserver.${{github.ref_name}}.windows.zip
+#  
+#  publish_linux:
+#    needs: [build, test]
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: Checkout
+#      uses: actions/checkout@v2
+#    - name: Setup .NET
+#      uses: actions/setup-dotnet@v1
+#      with:
+#        dotnet-version: 6.0.x
+#    - name: Publish
+#      shell: pwsh
+#      run: Build/scripts/reportserver.publish.ps1 -version ${{github.ref_name}} -runtime linux-x64 -publshFolder timetracking.reportserver.${{github.ref_name}}.linux
+#    - name: Create Linux release artifact
+#      uses: thedoctor0/zip-release@master
+#      with:
+#        type: 'zip'
+#        filename: timetracking.reportserver.${{github.ref_name}}.linux.zip
+#        path: timetracking.reportserver.${{github.ref_name}}.linux
+#    - name: Upload Linux release artifact
+#      uses: softprops/action-gh-release@v1
+#      with:
+#        files: timetracking.reportserver.${{github.ref_name}}.linux.zip
         
   publish_docker_image:
     needs: [build, test]
@@ -109,8 +109,8 @@ jobs:
         tags: |
           schicksoftware/timetracking.reportserver:${{github.ref_name}}
           schicksoftware/timetracking.reportserver:latest
-        push: ${{ github.ref == 'refs/heads/main' }}
-        # push: true
+        # push: ${{ github.ref == 'refs/heads/main' }}
+        push: true
 
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}
