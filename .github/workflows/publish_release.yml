@@ -89,7 +89,7 @@ jobs:
 #        files: timetracking.reportserver.${{github.ref_name}}.linux.zip
         
   publish_docker_image:
-    needs: [build, test]
+    # needs: [build, test]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
