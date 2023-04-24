@@ -11,8 +11,7 @@ internal static class RestApi
 {
     public static WebApplication RegisterRestApiRoutes(this WebApplication webApplication)
     {
-        webApplication
-            .UseEndpoints(endpoints => endpoints.MapControllers());
+        webApplication.MapControllers();
         return webApplication;
     }
 

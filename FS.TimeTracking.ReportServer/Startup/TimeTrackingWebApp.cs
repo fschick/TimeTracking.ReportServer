@@ -61,12 +61,8 @@ internal static class TimeTrackingWebApp
         builder.Configuration.ClearConfiguration();
         builder.Configuration.AddConfigurationFromEnvironment(args);
 
-        builder.WebHost.ConfigureServices((context, services) =>
-        {
-            services
-                .CreateAndRegisterEnvironmentConfiguration(context.HostingEnvironment)
-                .Configure<TimeTrackingReportConfiguration>(context.Configuration.GetSection(TimeTrackingReportConfiguration.CONFIGURATION_SECTION));
-        });
+        builder.Services.CreateAndRegisterEnvironmentConfiguration(builder.Environment);
+        builder.Services.Configure<TimeTrackingReportConfiguration>(builder.Configuration.GetSection(TimeTrackingReportConfiguration.CONFIGURATION_SECTION));
     }
 
     private static void ConfigureNlog(this WebApplicationBuilder builder)
@@ -81,13 +77,9 @@ internal static class TimeTrackingWebApp
 
     private static void ConfigureServerServices(this WebApplicationBuilder builder)
     {
-        builder.WebHost.ConfigureServices((context, services) =>
-        {
-            services
-                .RegisterApplicationServices()
-                .RegisterOpenApiController()
-                .RegisterRestApiController();
-        });
+        builder.Services.RegisterApplicationServices();
+        builder.Services.RegisterOpenApiController();
+        builder.Services.RegisterRestApiController();
     }
 
     private static void ConfigureServerApplication(this WebApplication webApplication)
