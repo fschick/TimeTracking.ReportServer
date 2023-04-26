@@ -102,7 +102,7 @@ See [official documentation](https://github.com/nlog/nlog/wiki/Configuration-fil
 
 ### Pre requirements
 
-[.NET 6 SDK](https://dotnet.microsoft.com/en-us/download)
+[.NET 7 SDK](https://dotnet.microsoft.com/en-us/download)
 
 ### Run
 
