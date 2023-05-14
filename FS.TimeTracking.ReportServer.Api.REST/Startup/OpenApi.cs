@@ -22,28 +22,33 @@ internal static class OpenApi
     internal static IServiceCollection RegisterOpenApiController(this IServiceCollection services)
         => services
             .AddSwaggerGenNewtonsoftSupport()
-            .AddSwaggerGen(c =>
+            .AddSwaggerGen(options =>
             {
                 const string documentName = V1ApiController.API_VERSION;
-                c.SwaggerDoc(documentName, new OpenApiInfo { Title = $"{AssemblyExtensions.GetProgramProduct()} Report API", Version = V1ApiController.API_VERSION });
+                options.SwaggerDoc(documentName, new OpenApiInfo { Title = $"{AssemblyExtensions.GetProgramProduct()} Report API", Version = V1ApiController.API_VERSION });
 
-                c.OperationFilter<AddCSharpActionFilter>();
+                options.OperationFilter<AddCSharpActionFilter>();
 
                 var restXmlDoc = Path.Combine(AppContext.BaseDirectory, "FS.TimeTracking.ReportServer.Api.REST.xml");
                 var abstractionsXmlDoc = Path.Combine(AppContext.BaseDirectory, "FS.TimeTracking.ReportServer.Abstractions.xml");
-                c.IncludeXmlComments(restXmlDoc);
-                c.IncludeXmlComments(abstractionsXmlDoc);
+                options.IncludeXmlComments(restXmlDoc);
+                options.IncludeXmlComments(abstractionsXmlDoc);
             });
 
     internal static WebApplication RegisterOpenApiRoutes(this WebApplication webApplication)
     {
         webApplication
-            .UseSwagger(c => c.RouteTemplate = $"{OPEN_API_UI_ROUTE}{{documentName}}/{OPEN_API_SPEC}")
-            .UseSwaggerUI(c =>
+            .UseSwagger(options => options.RouteTemplate = $"{OPEN_API_UI_ROUTE}{{documentName}}/{OPEN_API_SPEC}")
+            .UseSwaggerUI(options =>
             {
-                c.RoutePrefix = OPEN_API_UI_ROUTE.Trim('/');
-                c.SwaggerEndpoint($"{V1ApiController.API_VERSION}/{OPEN_API_SPEC}", $"API version {V1ApiController.API_VERSION}");
-                c.DisplayRequestDuration();
+                options.RoutePrefix = OPEN_API_UI_ROUTE.Trim('/');
+                options.SwaggerEndpoint($"{V1ApiController.API_VERSION}/{OPEN_API_SPEC}", $"API version {V1ApiController.API_VERSION}");
+                options.DisplayRequestDuration();
+                options.EnableDeepLinking();
+                options.EnableFilter();
+                options.EnableTryItOutByDefault();
+                options.ConfigObject.AdditionalItems.Add("requestSnippetsEnabled", true);
+
             });
 
         return webApplication;
