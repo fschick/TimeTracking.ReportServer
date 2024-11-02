@@ -11,7 +11,7 @@ param (
 Push-Location $PSScriptRoot/../..
 
 # Configure
-$framework = "net7.0"
+$framework = "net8.0"
 if (!$version){
     $version = git describe --tags
 }

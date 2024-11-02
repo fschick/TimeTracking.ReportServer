@@ -56,22 +56,6 @@
 
   <!-- rules to map from logger name to target -->
   <rules>
-    <!-- All logs to sentinel, including from Microsoft -->
-    <!-- Can causes this error: An error occurred while writing to logger(s). (Exception occurred in NLog) - NLog.NLogRuntimeException: Exception occurred in NLog - System.IO.IOException: Error: NoBufferSpaceAvailable - End of inner exception stack trace -->
-    <!--
-    <logger name="*" minlevel="Trace" writeTo="log_to_sentinel_all" />
-    -->
-
-    <!-- All executed sql statements to sentinel (EF)  -->
-    <!-- Can causes this error: An error occurred while writing to logger(s). (Exception occurred in NLog) - NLog.NLogRuntimeException: Exception occurred in NLog - System.IO.IOException: Error: NoBufferSpaceAvailable - End of inner exception stack trace -->
-    <!--
-    <logger name="Microsoft.EntityFrameworkCore.Database.Command" minlevel="Info" writeTo="log_to_sentinel_ef_commands">
-      <filters>
-        <when condition="starts-with('${message}', 'Executed DbCommand')" action="LogFinal" />
-      </filters>
-    </logger>
-    -->
-
     <!-- Startup messages to console -->
     <logger name="Microsoft.Hosting.Lifetime" minlevel="Info" writeTo="log_to_console" />
 
@@ -85,9 +69,6 @@
     <!-- Remove as soon as chatty EF is fixed, see https://github.com/dotnet/efcore/issues/19526 -->
     <logger name="*" minlevel="Trace" writeTo="black_hole" >
       <filters>
-        <when condition="equals(logger, 'Microsoft.EntityFrameworkCore.Database.Connection') and equals('${event-properties:item=EventId_Id}', '20004') and equals('${exception:format=tostring}', '')" action="IgnoreFinal" />
-        <when condition="equals(logger, 'Microsoft.EntityFrameworkCore.Database.Command') and equals('${event-properties:item=EventId_Id}', '20102') and equals('${exception:format=tostring}', '')" action="IgnoreFinal" />
-        <when condition="equals(logger, 'Microsoft.EntityFrameworkCore.Query') and contains('${exception:format=tostring}', 'System.Threading.Tasks.TaskCanceledException')" action="IgnoreFinal" />
         <when condition="equals(logger, 'Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware') and contains('${exception:format=tostring}', 'System.Threading.Tasks.TaskCanceledException')" action="IgnoreFinal" />
       </filters>
     </logger>

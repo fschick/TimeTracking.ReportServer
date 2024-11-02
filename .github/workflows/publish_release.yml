@@ -1,4 +1,4 @@
-name: Publish Demo Application
+name: Publish Release
 
 on:
   release:
@@ -52,7 +52,7 @@ jobs:
         dotnet-version: 7.0.x
     - name: Publish
       shell: pwsh
-      run: Build/scripts/reportserver.publish.ps1 -version ${{github.ref_name}} -runtime win10-x64 -publshFolder timetracking.reportserver.${{github.ref_name}}.windows
+      run: Build/scripts/reportserver.publish.ps1 -version ${{github.ref_name}} -runtime win-x64 -publshFolder timetracking.reportserver.${{github.ref_name}}.windows
     - name: Create Windows release artifact
       uses: thedoctor0/zip-release@master
       with:

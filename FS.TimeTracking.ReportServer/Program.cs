@@ -2,7 +2,7 @@ using FS.TimeTracking.ReportServer.Api.REST.Startup;
 using FS.TimeTracking.ReportServer.Core.Models.Configuration;
 using FS.TimeTracking.ReportServer.Startup;
 using Microsoft.AspNetCore.Builder;
-using NLog.Web;
+using NLog;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -30,15 +30,20 @@ internal class Program
         }
         catch (Exception exception)
         {
-            using var loggerFactory = NLogBuilder.ConfigureNLog(Path.Combine(TimeTrackingReportConfiguration.CONFIG_FOLDER, TimeTrackingReportConfiguration.NLOG_CONFIGURATION_FILE));
-            loggerFactory
-                .GetCurrentClassLogger()
-                .Error(exception, "Program stopped due to an exception");
+            var loggerConfiguration = Path.Combine(TimeTrackingReportConfiguration.CONFIG_FOLDER, TimeTrackingReportConfiguration.NLOG_CONFIGURATION_FILE);
+            var logger = LogManager
+                .Setup()
+                .LoadConfigurationFromFile(loggerConfiguration)
+                .LogFactory
+                .GetCurrentClassLogger();
+
+            logger.Error(exception, "Program stopped due to an exception");
+
             throw;
         }
         finally
         {
-            NLog.LogManager.Shutdown();
+            LogManager.Shutdown();
         }
     }
 
